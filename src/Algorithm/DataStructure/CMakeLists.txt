@@ -1,4 +1,5 @@
 add_source_sesame(
+        DataStructure.cpp
         Point.cpp
         TreeNode.cpp
         CoresetTree.cpp
@@ -13,3 +14,4 @@ add_source_sesame(
         OutlierResevoir.cpp
         FeatureVector.cpp
 )
+add_subdirectory(Tree)

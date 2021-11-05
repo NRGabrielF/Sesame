@@ -34,7 +34,15 @@ class GeneralTreeNode {
 
   //pointer on the parent node
   GeneralTreePtr parent;
-  void initialTre
+  void setIsLeaf(bool leaf);
+  bool getIsLeaf();
+  void calculateDistance(PointPtr &p);
+  void searchNodeToInsert(PointPtr &p);
+  void splitNode();
+  void adjustClusterCenter();
+  void mergeTwoNode();
+  void pointSwitchNode();
+  void
 };
 }
 #endif //SESAME_INCLUDE_ALGORITHM_DATASTRUCTURE_TREE_GENERALTREE_HPP_

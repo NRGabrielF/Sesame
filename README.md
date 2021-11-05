@@ -9,3 +9,19 @@
 5. first submission - 1/Dec/2021
 
 Add-on. Learn how to draw figure using python -- Zhonghao.
+
+# Evaluation Results
+
+We begin with a comparison of the data structure. We then pick the best overall structure and use it to evaluate the window model, outlier detection, concept drift handling and offline refinement.
+
+|      | Data Structure | Window model | outlier detection | concept Drift Handling | Offline Refinement | Purity | CMM   | Time |
+| ---- | -------------- | ------------ | ----------------- | ---------------------- | ------------------ | ------ | ----- | ---- |
+|      | CFTree         | Landmark     | Distance          | Count                  | -                  | 0.412  | 0.769 |      |
+|      | Coreset        | Landmark     | Distance          | Count                  | -                  |        |       |      |
+|      | Grid           | Landmark     | Distance          | Count                  | -                  |        |       |      |
+|      | Micro Cluster  | Landmark     | Distance          | Count                  | -                  |        |       |      |
+|      |                |              |                   |                        |                    |        |       |      |
+|      |                |              |                   |                        |                    |        |       |      |
+|      |                |              |                   |                        |                    |        |       |      |
+|      |                |              |                   |                        | -                  |        |       |      |
+

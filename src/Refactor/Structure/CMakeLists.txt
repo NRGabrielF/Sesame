@@ -1,2 +1,2 @@
-add_source_sesame(CF.cpp
+add_source_sesame(MCluster.cpp
 )

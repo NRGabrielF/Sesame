@@ -21,6 +21,7 @@ class MCluster {
   double weight;
   int dimension;
  public:
+  MCluster();
   int getN();
   std::vector<double> getLS();
   std::vector<double> getSS();

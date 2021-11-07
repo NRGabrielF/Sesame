@@ -10,6 +10,13 @@
  * */
 #include <Refactor/Structure/MCluster.hpp>
 
+SESAME::MCluster::MCluster() {
+  this->N = 0;
+  this->radius = 0;
+  this->dimension = 0;
+  this->weight = 1;
+}
+
 int SESAME::MCluster::getN() {
   return this->N;
 }

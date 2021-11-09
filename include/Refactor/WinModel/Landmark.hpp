@@ -8,17 +8,30 @@
 #include <Algorithm/OfflineClustering/KMeans.hpp>
 #include <Sinks/DataSink.hpp>
 #include <Refactor/AlgorithmRegroup.hpp>
-
-class Landmark;
-typedef std::shared_ptr<Landmark> LandmarkPtr;
-
+#include <Refactor/Structure/MCluster.hpp>
+#include <Refactor/Structure/OutlierBuffer.hpp>
+#include <vector>
 namespace SESAME{
+class Landmark;
+class LandmarkParameter;
+typedef std::shared_ptr<Landmark> LandmarkPtr;
+typedef std::shared_ptr<LandmarkParameter> LandmarkParametersPtr;
+
+class LandmarkParameter: public RegroupParameters {
+ public:
+  int windowLength;
+  int thresholdCount;
+  double thresholdDistance;
+  double thresholdOutlierCount;
+};
+
 class Landmark : public AlgorithmRegroup {
  public:
-  void runAlgorithm(PointPtr input, DataSinkPtr sinkPtr);
-  void initialize();
-  void runOnline(PointPtr input);
-  void runOffline(DataSinkPtr sinkPtr);
+  LandmarkParameter parameters;
+  void runAlgorithm(PointPtr &input, DataSinkPtr &sinkPtr) override;
+  void runOnline(PointPtr &input) override;
+  void runOffline(DataSinkPtr &sinkPtr) override;
+  void getFinalClusterCenter() override;
 };
 }
 #endif //SESAME_SRC_REFACTOR_WINMODEL_LANDMARK_HPP_

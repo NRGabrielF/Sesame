@@ -21,8 +21,9 @@ typedef std::shared_ptr<Algorithm> AlgorithmPtr;
 
 class AlgorithmParameters {
  public:
-  int pointNumber;
+  int windowLength;
   int dimension;
+  int pointNumber;
 };
 
 class Algorithm {

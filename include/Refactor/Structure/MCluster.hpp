@@ -11,6 +11,9 @@
 #include <cmath>
 
 namespace SESAME{
+class MCluster;
+typedef std::shared_ptr<MCluster> MClusterPtr;
+
 class MCluster {
  private:
   int N;  // number of points in the micro clusters
@@ -21,7 +24,7 @@ class MCluster {
   double weight;
   int dimension;
  public:
-  MCluster();
+  void init(int d);
   int getN();
   std::vector<double> getLS();
   std::vector<double> getSS();
@@ -29,13 +32,16 @@ class MCluster {
   double getRadius();
   double getWeight();
   int getDimension();
+  double calCentroidDistance(PointPtr &p);
+  SESAME::MClusterPtr copy();
   void setN(int n);
   void setLS(PointPtr &p);
   void setSS(PointPtr &p);
-  void setLSByIndex(int index, double value);
-  void setSSByIndex(int index, double value);
   void setCentroid(PointPtr &p);
   void setRadius(PointPtr &p);
+  void updateAttribute(PointPtr &p);
+  void setLSByIndex(int index, double value);
+  void setSSByIndex(int index, double value);
   void setRadius(double r);
   void setWeight(double w);
   void setDimension(int d);

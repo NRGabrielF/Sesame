@@ -1,0 +1,24 @@
+//
+// Created by tuidan on 2021/11/9.
+//
+
+#ifndef SESAME_INCLUDE_REFACTOR_STRUCTURE_OUTLIERBUFFER_HPP_
+#define SESAME_INCLUDE_REFACTOR_STRUCTURE_OUTLIERBUFFER_HPP_
+#include <Algorithm/DataStructure/Point.hpp>
+#include <Refactor/Structure/MCluster.hpp>
+namespace SESAME {
+class OutlierBuffer;
+typedef std::shared_ptr<OutlierBuffer> OutlierBufferPtr;
+
+class OutlierBuffer {
+ private:
+  std::vector<MClusterPtr> outlierClusters;
+ public:
+  std::vector<MClusterPtr> getOutlierClusters();
+  MClusterPtr fillTransformation(int thresholdCount);
+  void insertOutlierCluster(PointPtr &p);
+
+
+};
+}
+#endif //SESAME_INCLUDE_REFACTOR_STRUCTURE_OUTLIERBUFFER_HPP_

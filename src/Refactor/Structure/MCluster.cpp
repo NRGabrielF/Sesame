@@ -10,11 +10,18 @@
  * */
 #include <Refactor/Structure/MCluster.hpp>
 
-SESAME::MCluster::MCluster() {
+void SESAME::MCluster::init(int d) {
   this->N = 0;
   this->radius = 0;
-  this->dimension = 0;
+  this->dimension = d;
   this->weight = 1;
+  std::vector<double> zeros;
+  for(int i = 0; i < d; i++) {
+    zeros.push_back(0);
+  }
+  this->LS = zeros;
+  this->SS = zeros;
+  this->centroid = zeros;
 }
 
 int SESAME::MCluster::getN() {
@@ -87,3 +94,24 @@ void SESAME::MCluster::setSS(SESAME::PointPtr &p) {
     this->SS.at(i) += pow(p->getFeatureItem(i), 2);
   }
 }
+double SESAME::MCluster::calCentroidDistance(PointPtr &p){
+
+  double temp=0;
+  for(int i=0; i<dimension; i++){
+    double diff=centroid[i]-p->getFeatureItem(i);
+    temp+=(diff*diff);
+  }
+  return sqrt(temp);
+}
+
+SESAME::MClusterPtr SESAME::MCluster::copy() {
+  return std::make_shared<MCluster>(*this);
+}
+void SESAME::MCluster::updateAttribute(SESAME::PointPtr &p) {
+  this->setLS(p);
+  this->setSS(p);
+  this->setRadius(p);
+  this->setCentroid(p);
+  this->N += 1;
+}
+

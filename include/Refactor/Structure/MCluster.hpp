@@ -16,7 +16,7 @@ typedef std::shared_ptr<MCluster> MClusterPtr;
 
 class MCluster {
  private:
-  int N;  // number of points in the micro clusters
+  int Pnum;  // number of points in the micro clusters
   std::vector<double> LS;
   std::vector<double> SS;
   std::vector<double> centroid;
@@ -24,7 +24,7 @@ class MCluster {
   double weight;
   int dimension;
  public:
-  void init(int d);
+  MCluster(int d);
   int getN();
   std::vector<double> getLS();
   std::vector<double> getSS();

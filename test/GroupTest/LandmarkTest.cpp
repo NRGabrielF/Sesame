@@ -1,9 +1,6 @@
-// Copyright (C) 2021 by the IntelliStream team (https://github.com/intellistream)
-
 //
-// Created by tuidan on 2021/8/25.
+// Created by tuidan on 2021/11/9.
 //
-
 
 #include <filesystem>
 #include <gtest/gtest.h>
@@ -13,21 +10,19 @@
 #include <Sinks/DataSinkFactory.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
 
-TEST(SystemTest, BirchTest) {
+TEST(GroupTest, LandmarkTest) {
   //Setup Logs.
   setupLogging("benchmark.log", LOG_DEBUG);
 
   //Parse parameters.
   param_t cmd_params;
-  cmd_params.pointNumber = 2000;
-  cmd_params.thresholdDistance = 7;
-  cmd_params.maxInternalNodes = 3;
-  cmd_params.maxLeafNodes = 3;
-  cmd_params.dimension = 54;
+  cmd_params.pointNumber = 150;
+  cmd_params.clusterNumber = 3;
+  cmd_params.dimension = 4;
 
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Mock.txt";
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::BirchType;
+  cmd_params.algoType = SESAME::LandmarkType;
 
   std::vector<SESAME::PointPtr> input;
   std::vector<SESAME::PointPtr> results;

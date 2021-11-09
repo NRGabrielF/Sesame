@@ -15,8 +15,9 @@ SESAME::MClusterPtr SESAME::OutlierBuffer::fillTransformation(int thresholdCount
       return temp;
     }
   }
+  return nullptr;
 }
-void SESAME::OutlierBuffer::insertOutlierCluster(SESAME::PointPtr &p) {
+void SESAME::OutlierBuffer::insertOutlierCluster(SESAME::PointPtr &p, int thresholdDistance) {
   double minDistance = DBL_MAX;
   int closestClusterID = 0;
   for (int i = 0; i < this->outlierClusters.size(); i++) {
@@ -26,6 +27,19 @@ void SESAME::OutlierBuffer::insertOutlierCluster(SESAME::PointPtr &p) {
       minDistance = dist;
     }
   }
-  this->outlierClusters.at(closestClusterID)->updateAttribute(p);
+  if(minDistance <= thresholdDistance) {
+    this->outlierClusters.at(closestClusterID)->updateAttribute(p);
+  } else {
+    MClusterPtr m = std::make_shared<MCluster>(p->getDimension());
+    m->updateAttribute(p);
+    this->outlierClusters.push_back(m);
+  }
+
+}
+SESAME::OutlierBuffer::OutlierBuffer() {
+
+}
+SESAME::OutlierBuffer::~OutlierBuffer() {
+
 }
 

@@ -10,6 +10,7 @@
 #include <Algorithm/DBStream.hpp>
 #include <Algorithm/Birch.hpp>
 #include <Algorithm/EDMStream.hpp>
+#include <Refactor/WinModel/Landmark.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
 
 SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
@@ -33,9 +34,13 @@ SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
     shared_ptr<EDMStream> eDMStream = std::make_shared<EDMStream>(cmd_params);
     return (SESAME::AlgorithmPtr) eDMStream;
   }
-  if (cmd_params.algoType == DBStreamType) {
+  if (cmd_params.algoType == SESAME::DBStreamType) {
     shared_ptr<DBStream> dbStream = std::make_shared<DBStream>(cmd_params);
     return (SESAME::AlgorithmPtr) dbStream;
+  }
+  if (cmd_params.algoType == SESAME::LandmarkType) {
+    shared_ptr<Landmark> landmark = std::make_shared<Landmark>(cmd_params);
+    return (SESAME::AlgorithmPtr) landmark;
   }
   throw std::invalid_argument("Unsupported");
 

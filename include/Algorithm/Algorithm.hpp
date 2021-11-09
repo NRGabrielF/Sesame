@@ -14,22 +14,22 @@
 using namespace std;
 namespace SESAME {
 
-enum algoType { BirchType, StreamKMeansType, CluStreamType, DenStreamType, DBStreamType, EDMStreamType};
+enum algoType { BirchType, StreamKMeansType, CluStreamType, DenStreamType, DBStreamType, EDMStreamType, LandmarkType};
 
 class Algorithm;
 typedef std::shared_ptr<Algorithm> AlgorithmPtr;
 
 class AlgorithmParameters {
  public:
-  int windowLength;
   int dimension;
   int pointNumber;
+  int numberOfClusters;
 };
 
 class Algorithm {
  public:
   Algorithm() = default;
-  virtual ~Algorithm() = default;
+  ~Algorithm() = default;
   virtual void Initilize() = 0;
   virtual void runOnlineClustering(SESAME::PointPtr input) = 0;
   virtual void runOfflineClustering(SESAME::DataSinkPtr ptr) = 0;

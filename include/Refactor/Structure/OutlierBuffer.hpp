@@ -14,9 +14,11 @@ class OutlierBuffer {
  private:
   std::vector<MClusterPtr> outlierClusters;
  public:
+  OutlierBuffer();
+  ~OutlierBuffer();
   std::vector<MClusterPtr> getOutlierClusters();
   MClusterPtr fillTransformation(int thresholdCount);
-  void insertOutlierCluster(PointPtr &p);
+  void insertOutlierCluster(PointPtr &p, int thresholdDistance);
 
 
 };

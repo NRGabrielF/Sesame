@@ -11,6 +11,7 @@ SESAME::MClusterPtr SESAME::OutlierBuffer::fillTransformation(int thresholdCount
   for(int i = 0; i < this->outlierClusters.size(); i++) {
     if(this->outlierClusters[i]->getN() >= thresholdCount) {
       MClusterPtr temp = this->outlierClusters[i]->copy();
+      SESAME_INFO("Outliers transform into clusters!!!");
       this->outlierClusters.erase(this->outlierClusters.begin() + i);
       return temp;
     }

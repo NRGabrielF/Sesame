@@ -17,31 +17,37 @@
 
 void SESAME::Landmark::runOnlineClustering(PointPtr input) {
   count++;
-  MClusterPtr closestCluster = std::make_shared<MCluster>(this->parameters.dimension);
+  int closestClusterID;
   double minDistance = DBL_MAX;
   for (int i = 0; i < this->microClusters.size(); i++) {
     double dist = microClusters[i]->calCentroidDistance(input);
     if (dist < minDistance) {
-      closestCluster = microClusters[i]->copy();
+      closestClusterID = i;
       minDistance = dist;
     }
   }
 
-  // distance is too large then throw the point into outliers
-  if(minDistance > this->parameters.thresholdDistance) {
-    this->outliers->insertOutlierCluster(input, this->parameters.thresholdDistance);
-    MClusterPtr newCluster = this->outliers->fillTransformation(this->parameters.thresholdOutlierCount);
-    SESAME_INFO(this->outliers->getOutlierClusters().size());
-    if(newCluster != nullptr) {
-      this->microClusters.push_back(newCluster); // update transformation
-    }
-  } else {
-    if(closestCluster->getN() >= this->parameters.thresholdCount) {
-      MClusterPtr newCluster = std::make_shared<MCluster>(this->parameters.dimension);
-      newCluster->updateAttribute(input);
-      this->microClusters.push_back(newCluster);
-    } else{
-      closestCluster->updateAttribute(input);  // else normally insert into the micro-clusters
+  if(this->microClusters.size() == 0) {
+    MClusterPtr newCluster = std::make_shared<MCluster>(this->parameters.dimension);
+    newCluster->updateAttribute(input);
+    this->microClusters.push_back(newCluster);
+  } else{
+    // distance is too large then throw the point into outliers
+    if(minDistance > this->parameters.thresholdDistance) {
+      this->outliers->insertOutlierCluster(input, this->parameters.thresholdDistance);
+      MClusterPtr newCluster = this->outliers->fillTransformation(this->parameters.thresholdOutlierCount);
+      // SESAME_INFO(this->outliers->getOutlierClusters().size());
+      if(newCluster != nullptr) {
+        this->microClusters.push_back(newCluster); // update transformation
+      }
+    } else {
+      if(this->microClusters[closestClusterID]->getN() >= this->parameters.thresholdCount) {
+        MClusterPtr newCluster = std::make_shared<MCluster>(this->parameters.dimension);
+        newCluster->updateAttribute(input);
+        this->microClusters.push_back(newCluster);
+      } else{
+        this->microClusters[closestClusterID]->updateAttribute(input);  // else normally insert into the micro-clusters
+      }
     }
   }
 }
@@ -77,9 +83,9 @@ SESAME::Landmark::Landmark(param_t &cmd_params) {
   this->parameters.pointNumber = cmd_params.pointNumber;
   this->parameters.dimension = cmd_params.dimension;
   this->parameters.numberOfClusters = cmd_params.clusterNumber;
-  this->parameters.thresholdOutlierCount = 5;
-  this->parameters.thresholdDistance = 2;
-  this->parameters.thresholdCount = 20;
+  this->parameters.thresholdOutlierCount = 2;
+  this->parameters.thresholdDistance = 7;
+  this->parameters.thresholdCount = 10;
   this->outliers = std::make_shared<OutlierBuffer>();
   this->count = 0;
 }

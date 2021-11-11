@@ -11,6 +11,7 @@
 #include <Algorithm/Birch.hpp>
 #include <Algorithm/EDMStream.hpp>
 #include <Refactor/WinModel/Landmark.hpp>
+#include <Refactor/WinModel/Damped.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
 
 SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
@@ -41,6 +42,10 @@ SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
   if (cmd_params.algoType == SESAME::LandmarkType) {
     shared_ptr<Landmark> landmark = std::make_shared<Landmark>(cmd_params);
     return (SESAME::AlgorithmPtr) landmark;
+  }
+  if (cmd_params.algoType == SESAME::DampedType) {
+    shared_ptr<Damped> damped = std::make_shared<Damped>(cmd_params);
+    return (SESAME::AlgorithmPtr) damped;
   }
   throw std::invalid_argument("Unsupported");
 

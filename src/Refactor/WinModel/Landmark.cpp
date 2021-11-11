@@ -9,14 +9,13 @@
 
 /**
  * Data Structure: Micro Cluster
- * Window Model: Landmark Window Model
+ * Window Model: Landmark Window Model， length = 1
  * Outlier Detection: Distance Based
  * Concept Drift Handling: Count Based
  * Offline Refinement: KMeans++
  */
 
 void SESAME::Landmark::runOnlineClustering(PointPtr input) {
-  count++;
   int closestClusterID;
   double minDistance = DBL_MAX;
   for (int i = 0; i < this->microClusters.size(); i++) {
@@ -87,11 +86,7 @@ SESAME::Landmark::Landmark(param_t &cmd_params) {
   this->parameters.thresholdDistance = 7;
   this->parameters.thresholdCount = 10;
   this->outliers = std::make_shared<OutlierBuffer>();
-  this->count = 0;
 }
-void SESAME::Landmark::Initilize() {
-  SESAME_INFO(1);
-}
-SESAME::Landmark::~Landmark() {
+void SESAME::Landmark::Initilize() {}
 
-}
+SESAME::Landmark::~Landmark() {}

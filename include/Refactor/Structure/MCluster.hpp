@@ -23,6 +23,7 @@ class MCluster {
   double radius;
   double weight;
   int dimension;
+  double lastModifyTime;
  public:
   MCluster(int d);
   int getN();
@@ -31,6 +32,7 @@ class MCluster {
   std::vector<double> getCentroid();
   double getRadius();
   double getWeight();
+  double getLastModifyTime();
   int getDimension();
   double calCentroidDistance(PointPtr &p);
   SESAME::MClusterPtr copy();
@@ -40,12 +42,13 @@ class MCluster {
   void setCentroid(PointPtr &p);
   void setRadius(PointPtr &p);
   void updateAttribute(PointPtr &p);
+  void updateAttribute(double time, double alpha, double lambda);
   void setLSByIndex(int index, double value);
   void setSSByIndex(int index, double value);
   void setRadius(double r);
   void setWeight(double w);
   void setDimension(int d);
-
+  void setLastModifyTime(double t);
 };
 }
 #endif //SESAME_INCLUDE_REFACTOR_STRUCTURE_MCLUSTER_HPP_

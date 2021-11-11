@@ -29,7 +29,6 @@ class Landmark : public Algorithm {
   OutlierBufferPtr outliers;
   std::vector<PointPtr> finalClusterCenters;
   KMeans km;
-  int count;
 
   Landmark(param_t &cmd_params);
 

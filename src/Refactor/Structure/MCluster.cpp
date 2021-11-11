@@ -9,6 +9,8 @@
  * Offline Refinement: DBSCAN
  * */
 #include <Refactor/Structure/MCluster.hpp>
+#include <Algorithm/DataStructure/Point.hpp>
+#include <Utils/Logger.hpp>
 
 SESAME::MCluster::MCluster(int d) {
   this->Pnum = 0;
@@ -102,10 +104,27 @@ SESAME::MClusterPtr SESAME::MCluster::copy() {
   return std::make_shared<MCluster>(*this);
 }
 void SESAME::MCluster::updateAttribute(SESAME::PointPtr &p) {
-  this->setLS(p);
-  this->setSS(p);
   this->setRadius(p);
   this->setCentroid(p);
+  this->setLS(p);
+  this->setSS(p);
   this->Pnum = this->Pnum + 1;
+}
+double SESAME::MCluster::getLastModifyTime() {
+  return this->lastModifyTime;
+}
+void SESAME::MCluster::setLastModifyTime(double t) {
+  this->lastModifyTime =t;
+}
+void SESAME::MCluster::updateAttribute(double time, double alpha, double lambda) {
+  for(int i = 0; i < this->dimension; i++) {
+    this->LS[i] = this->LS[i] * pow(alpha, lambda * (time - this->lastModifyTime));
+    this->SS[i] = this->SS[i] * pow(alpha, lambda * (time - this->lastModifyTime));
+    if(this->Pnum == 0) {
+      SESAME_ERROR("ERROR! Point number equals 0!");
+    } else {
+      this->centroid[i] = this->LS[i] * pow(alpha, lambda * (time - this->lastModifyTime)) / this->Pnum;
+    }
+  }
 }
 

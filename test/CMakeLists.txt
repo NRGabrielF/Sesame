@@ -6,7 +6,7 @@ add_executable(Google_Tests_run
         SystemTest/EDMStreamTest.cpp
         SystemTest/DenStreamTest.cpp
         SystemTest/DBStreamTest.cpp
-        GroupTest/LandmarkTest.cpp GroupTest/DampedTest.cpp)
+        GroupTest/LandmarkTest.cpp GroupTest/DampedTest.cpp GroupTest/SlidingTest.cpp)
 
 # linking Google_Tests_run with sesame_lib which will be tested
 target_link_libraries(Google_Tests_run gtest_main sesame)

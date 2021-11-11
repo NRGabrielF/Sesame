@@ -57,6 +57,7 @@ void SESAME::Damped::runOnlineClustering(PointPtr input) {
 }
 
 void SESAME::Damped::getFinalClusterCenter() {
+  SESAME_INFO("The mid cluster number is:" << this->microClusters.size());
   for(int i = 0; i < this->microClusters.size(); i++) {
     MClusterPtr mc = this->microClusters.at(i);
     PointPtr center = DataStructureFactory::createPoint(i,1,this->parameters.dimension, 0);

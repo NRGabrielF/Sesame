@@ -17,7 +17,10 @@ class OutlierBuffer {
   OutlierBuffer();
   ~OutlierBuffer();
   std::vector<MClusterPtr> getOutlierClusters();
-  MClusterPtr fillTransformation(int thresholdCount);
+  MClusterPtr fillDensityTransformation(int thresholdCount); // concept drift
+  MClusterPtr fillTimeTransformation(double currentTime, double thresholdMininterval);
+  MClusterPtr discardOutliersThroughDensity(int thresholdCount);
+  MClusterPtr discardOutliersThroughTime(int thresholdCount);
   void insertOutlierCluster(PointPtr &p, int thresholdDistance);
 
 

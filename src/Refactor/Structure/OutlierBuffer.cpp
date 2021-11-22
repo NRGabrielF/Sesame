@@ -7,9 +7,9 @@
 std::vector<SESAME::MClusterPtr> SESAME::OutlierBuffer::getOutlierClusters() {
   return this->outlierClusters;
 }
-SESAME::MClusterPtr SESAME::OutlierBuffer::fillTransformation(int thresholdCount) {
+SESAME::MClusterPtr SESAME::OutlierBuffer::fillDensityTransformation(int minDensity) {
   for(int i = 0; i < this->outlierClusters.size(); i++) {
-    if(this->outlierClusters[i]->getN() >= thresholdCount) {
+    if(this->outlierClusters[i]->getN() >= minDensity) {
       MClusterPtr temp = this->outlierClusters[i]->copy();
       SESAME_INFO("Outliers transform into clusters!!!");
       this->outlierClusters.erase(this->outlierClusters.begin() + i);
@@ -42,5 +42,16 @@ SESAME::OutlierBuffer::OutlierBuffer() {
 }
 SESAME::OutlierBuffer::~OutlierBuffer() {
 
+}
+SESAME::MClusterPtr SESAME::OutlierBuffer::fillTimeTransformation(double currentTime, double thresholdMininterval) {
+  for(int i = 0; i < this->outlierClusters.size(); i++) {
+    if(currentTime - this->outlierClusters[i]->getLastModifyTime() >= thresholdMininterval) {
+      MClusterPtr temp = this->outlierClusters[i]->copy();
+      SESAME_INFO("Outliers transform into clusters!!!");
+      this->outlierClusters.erase(this->outlierClusters.begin() + i);
+      return temp;
+    }
+  }
+  return nullptr;
 }
 

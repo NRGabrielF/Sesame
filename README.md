@@ -12,12 +12,34 @@ Add-on. Learn how to draw figure using python -- Zhonghao.
 
 # Evaluation Results
 
-We begin with a comparison of the data structure. We then pick the best overall structure and use it to evaluate the window model, outlier detection, concept drift handling and offline refinement.
+All combinations listed below:
 
-|      | Data Structure | Window model | outlier detection | concept Drift Handling | Offline Refinement | Purity | CMM   | Time |
-| ---- | -------------- | ------------ | ----------------- | ---------------------- | ------------------ | ------ | ----- | ---- |
-|      | MicroCluster   | Landmark     | Distance          | Count                  | KMeans++           | 0.412  | 0.769 |      |
-|      | Coreset        | Landmark     | Distance          | Count                  | KMeans++           |        |       |      |
-|      | Grid           | Landmark     | Distance          | Count                  | KMeans++           |        |       |      |
-|      | Micro Cluster  | Landmark     | Distance          | Count                  | KMeans++           |        |       |      |
+| Done | Data Structure | Window model | outlier detection | concept Drift Handling | Offline Refinement | Purity | CMM  | Time |
+| ---- | -------------- | ------------ | ----------------- | ---------------------- | ------------------ | ------ | ---- | ---- |
+|      | MC             | Landmark     | Density           | Time                   | KMeans++           |        |      |      |
+|      | MC             | Landmark     | Statistical       | Time                   | KMeans++           |        |      |      |
+|      | MC             | Landmark     | Density           | Time                   | Connection         |        |      |      |
+|      | MC             | Landmark     | Statistical       | Time                   | Connection         |        |      |      |
+|      | MC             | Landmark     | Density           | Density                | KMeans++           |        |      |      |
+|      | MC             | Landmark     | Statistical       | Density                | KMeans++           |        |      |      |
+|      | MC             | Landmark     | Density           | Density                | Connection         |        |      |      |
+|      | MC             | Landmark     | Statistical       | Density                | Connection         |        |      |      |
+|      |                |              |                   |                        |                    |        |      |      |
+|      | MC             | Damped       | Density           | Time                   | KMeans++           |        |      |      |
+|      | MC             | Damped       | Statistical       | Time                   | KMeans++           |        |      |      |
+|      | MC             | Damped       | Density           | Time                   | Connection         |        |      |      |
+|      | MC             | Damped       | Statistical       | Time                   | Connection         |        |      |      |
+|      | MC             | Damped       | Density           | Density                | KMeans++           |        |      |      |
+|      | MC             | Damped       | Statistical       | Density                | KMeans++           |        |      |      |
+|      | MC             | Damped       | Density           | Density                | Connection         |        |      |      |
+|      | MC             | Damped       | Statistical       | Density                | Connection         |        |      |      |
+|      |                |              |                   |                        |                    |        |      |      |
+|      | MC             | Sliding      | Density           | Time                   | KMeans++           |        |      |      |
+|      | MC             | Sliding      | Statistical       | Time                   | KMeans++           |        |      |      |
+|      | MC             | Sliding      | Density           | Time                   | Connection         |        |      |      |
+|      | MC             | Sliding      | Statistical       | Time                   | Connection         |        |      |      |
+|      | MC             | Sliding      | Density           | Density                | KMeans++           |        |      |      |
+|      | MC             | Sliding      | Statistical       | Density                | KMeans++           |        |      |      |
+|      | MC             | Sliding      | Density           | Density                | Connection         |        |      |      |
+|      | MC             | Sliding      | Statistical       | Density                | Connection         |        |      |      |
 

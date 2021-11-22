@@ -39,7 +39,7 @@ void SESAME::Sliding::runOnlineClustering(PointPtr input) {
         // distance is too large then throw the point into outliers
         if(minDistance > this->parameters.thresholdDistance) {
           this->outliers->insertOutlierCluster(input, this->parameters.thresholdDistance);
-          MClusterPtr newCluster = this->outliers->fillTransformation(this->parameters.thresholdOutlierCount);
+          MClusterPtr newCluster = this->outliers->fillDensityTransformation(this->parameters.thresholdOutlierCount);
           // SESAME_INFO(this->outliers->getOutlierClusters().size());
           if(newCluster != nullptr) {
             this->midClusters.push_back(newCluster); // update transformation
@@ -101,7 +101,7 @@ SESAME::Sliding::Sliding(param_t &cmd_params) {
   this->parameters.thresholdOutlierCount = 2;
   this->parameters.thresholdDistance = 7;
   this->parameters.thresholdCount = 10;
-  this->parameters.timeInterval = 4;
+  this->parameters.timeInterval = 20;
   this->stampCount = 1;
   this->outliers = std::make_shared<OutlierBuffer>();
 }

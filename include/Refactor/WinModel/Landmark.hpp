@@ -17,9 +17,8 @@ namespace SESAME{
 class LandmarkParameter: public AlgorithmParameters {
  public:
   int timeInterval;
-  int thresholdCount;
-  double thresholdDistance;
-  double thresholdOutlierCount;
+  double thresholdMaxDistance;
+  double thresholdMinDensity;
 };
 
 class Landmark : public Algorithm {

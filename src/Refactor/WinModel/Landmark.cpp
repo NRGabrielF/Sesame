@@ -10,8 +10,8 @@
 /**
  * Data Structure: Micro Cluster
  * Window Model: Landmark Window Model， length = 1
- * Outlier Detection: Distance Based
- * Concept Drift Handling: Count Based
+ * Outlier Detection: Density Based
+ * Concept Drift Handling: Density Based
  * Offline Refinement: KMeans++
  */
 
@@ -32,27 +32,21 @@ void SESAME::Landmark::runOnlineClustering(PointPtr input) {
     this->microClusters.push_back(newCluster);
   } else{
     // distance is too large then throw the point into outliers
-    if(minDistance > this->parameters.thresholdDistance) {
-      this->outliers->insertOutlierCluster(input, this->parameters.thresholdDistance);
-      MClusterPtr newCluster = this->outliers->fillTransformation(this->parameters.thresholdOutlierCount);
+    if(minDistance > this->parameters.thresholdMaxDistance) {
+      this->outliers->insertOutlierCluster(input, this->parameters.thresholdMaxDistance);
+      MClusterPtr newCluster = this->outliers->fillDensityTransformation(this->parameters.thresholdMinDensity);
       // SESAME_INFO(this->outliers->getOutlierClusters().size());
       if(newCluster != nullptr) {
         this->microClusters.push_back(newCluster); // update transformation
       }
     } else {
-      if(this->microClusters[closestClusterID]->getN() >= this->parameters.thresholdCount) {
-        MClusterPtr newCluster = std::make_shared<MCluster>(this->parameters.dimension);
-        newCluster->updateAttribute(input);
-        this->microClusters.push_back(newCluster);
-      } else{
         this->microClusters[closestClusterID]->updateAttribute(input);  // else normally insert into the micro-clusters
-      }
     }
   }
 }
 
 void SESAME::Landmark::getFinalClusterCenter() {
-  SESAME_INFO("The mid cluster number is:" << this->microClusters.size());
+  SESAME_INFO("The mid cluster number is:" << this->microClusters .size());
   for(int i = 0; i < this->microClusters.size(); i++) {
     MClusterPtr mc = this->microClusters.at(i);
     PointPtr center = DataStructureFactory::createPoint(i,1,this->parameters.dimension, 0);
@@ -83,9 +77,8 @@ SESAME::Landmark::Landmark(param_t &cmd_params) {
   this->parameters.pointNumber = cmd_params.pointNumber;
   this->parameters.dimension = cmd_params.dimension;
   this->parameters.numberOfClusters = cmd_params.clusterNumber;
-  this->parameters.thresholdOutlierCount = 2;
-  this->parameters.thresholdDistance = 7;
-  this->parameters.thresholdCount = 10;
+  this->parameters.thresholdMinDensity = 2;
+  this->parameters.thresholdMaxDistance = 7;
   this->outliers = std::make_shared<OutlierBuffer>();
 }
 void SESAME::Landmark::Initilize() {}

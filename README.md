@@ -43,4 +43,4 @@ All combinations listed below:
 |      | MC             | Sliding      | Density           | Density                | Connection         |        |      |      |
 |      | MC             | Sliding      | Statistical       | Density                | Connection         |        |      |      |
 
-![image](https://github.com/intellistream/Sesame/tree/Regroup_wx/docs/RandomMatch.drawio.png)
+![image](https://github.com/intellistream/Sesame/tree/Regroup_wx/docs/RandomMatch.png)

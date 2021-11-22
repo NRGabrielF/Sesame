@@ -45,3 +45,4 @@ All MC combinations listed below:
 |      | MC             | Sliding      | Density           | Density                | Connection         |        |      |      |
 |      | MC             | Sliding      | Time              | Density                | Connection         |        |      |      |
 
+![image](https://github.com/intellistream/Sesame/tree/Regroup_wx/docs/RandomMatch.png)

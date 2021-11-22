@@ -71,6 +71,7 @@ void SESAME::Landmark::runOfflineClustering(SESAME::DataSinkPtr sinkPtr) {
                      newGroups,
                      true);
   // store the result input output
+  // TODO: connection based ?
   this->km.produceResult(oldGroups, sinkPtr);
 }
 SESAME::Landmark::Landmark(param_t &cmd_params) {

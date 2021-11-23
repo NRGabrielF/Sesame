@@ -3,29 +3,28 @@
 //
 
 #include <Refactor/Module/Window.hpp>
+#include <cfloat>
 
 SESAME::WindowModel::WindowModel() {}
 
-bool SESAME::WindowModel::setWindow(SESAME::windowType w, PointPtr p) {
+bool SESAME::WindowModel::runWindowModel(SESAME::windowType w, SESAME::RefactorParametersPtr &para,PointPtr p) {
   if(w == SESAME::Landmark) {
-    if(this->windowElement.size() < this->parameters.WindowSize) {
-      this->windowElement.push_back(p);
+    if(para->windowElement.size() < para->windowSize) {
+      para->windowElement.push_back(p);
       return false;
     } else return true;
   } else if(w == SESAME::Sliding) {
-    if(this->windowElement.size() < this->parameters.WindowSize) {
-      this->windowElement.push_back(p);
+    if(para->windowElement.size() < para->windowSize) {
+      para->windowElement.push_back(p);
       return false;
     } else {
-      this->windowElement.erase( this->windowElement.begin());
-      this->windowElement.push_back(p);
+      para->windowElement.erase(para->windowElement.begin());
+      para->windowElement.push_back(p);
     }
   } else if(w == SESAME::Damped) {
-    this->windowElement.clear();
-    this->windowElement.push_back(p);
+    para->windowElement.clear();
+    para->windowElement.push_back(p);
+    return true;
     //  TODO: need to store the time?
   } throw std::invalid_argument("Unsupported");
-}
-std::vector<SESAME::PointPtr> SESAME::WindowModel::getWindowElement() {
-  return this->windowElement;
 }

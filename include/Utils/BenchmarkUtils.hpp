@@ -20,6 +20,10 @@
 #include <Sinks/DataSink.hpp>
 #include <Algorithm/Algorithm.hpp>
 #include <Evaluation/Evaluation.hpp>
+#include <Refactor/Module/Window.hpp>
+#include <Refactor/Module/ConceptDrift.hpp>
+#include <Refactor/Module/Offline.hpp>
+#include <Refactor/Module/OutlierDetect.hpp>
 
 struct param_t {
   int pointNumber;
@@ -58,6 +62,10 @@ struct param_t {
   std::string inputPath;
   std::string outputPath;
   SESAME::algoType algoType;
+  SESAME::windowType winType;
+  SESAME::oDType odType;
+  SESAME::offlineType offType;
+  SESAME::cDType cdType;
 };
 
 class BenchmarkUtils {

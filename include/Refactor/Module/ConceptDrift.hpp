@@ -7,24 +7,20 @@
 #include <memory>
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
+#include <Refactor/Structure/RefactorParameters.hpp>
+
 namespace SESAME {
 enum cDType {Density_CD, Time_CD};
 
-class ConceptDriftHandling;
-typedef std::shared_ptr<ConceptDriftHandling> ConceptDriftHandlingPtr;
+class ConceptDrift;
+typedef std::shared_ptr<ConceptDrift> ConceptDriftPtr;
 
-class WindowModelParameters {
+class ConceptDrift {
  public:
-  int WindowSize;
-};
-
-class ConceptDriftHandling {
- public:
-  WindowModelParameters parameters;
-  std::vector<SESAME::PointPtr> windowElement;
-  ConceptDriftHandling();
-  std::vector<SESAME::PointPtr> getWindowElement();
-  bool setWindow(SESAME::windowType w, PointPtr p);
+  ConceptDrift();
+  SESAME::MClusterPtr fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity);
+  SESAME::MClusterPtr fillTimeTransformation(SESAME::RefactorParametersPtr &para, double currentTime, double thresholdMininterval);
+  void runConceptDrift(SESAME::cDType cd, SESAME::RefactorParametersPtr &para);
 };
 }
 

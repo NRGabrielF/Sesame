@@ -30,9 +30,11 @@ void SESAME::OutlierBuffer::insertOutlierCluster(SESAME::PointPtr &p, int thresh
   }
   if(minDistance <= thresholdDistance) {
     this->outlierClusters.at(closestClusterID)->updateAttribute(p);
+    this->outlierClusters.at(closestClusterID)->setLastModifyTime(p->getTimeStamp());
   } else {
     MClusterPtr m = std::make_shared<MCluster>(p->getDimension());
     m->updateAttribute(p);
+    m->setLastModifyTime(p->getTimeStamp());
     this->outlierClusters.push_back(m);
   }
 

@@ -7,25 +7,24 @@
 #include <memory>
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
+#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Algorithm/OfflineClustering/KMeans.hpp>
+#include <Algorithm/OfflineClustering/DBSCAN.hpp>
+#include <Sinks/DataSink.hpp>
+
 namespace SESAME {
 enum offlineType {KMeans, KMeansPP, DBSCAN, Connection};
 
 class OfflineRefinement;
 typedef std::shared_ptr<OfflineRefinement> OfflineRefinementPtr;
 
-class OfflineRefinementParameters {
- public:
-  int WindowSize;
-};
-
 class OfflineRefinement {
  public:
-  OfflineRefinementParameters parameters;
-  std::vector<SESAME::PointPtr> windowElement;
+  class KMeans k_means;
+  class DBSCAN db_scan;
   OfflineRefinement();
-  std::vector<SESAME::PointPtr> getWindowElement();
-  bool setWindow(SESAME::windowType w, PointPtr p);
+  void getFinalClusterCenter(SESAME::RefactorParametersPtr &para);
+  void runOfflineRefinement(SESAME::offlineType offline, SESAME::RefactorParametersPtr &para, SESAME::DataSinkPtr sinkPtr);
 };
 }
-
 #endif //SESAME_INCLUDE_REFACTOR_MODULE_OFFLINE_HPP_

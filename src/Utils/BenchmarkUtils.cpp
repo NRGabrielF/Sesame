@@ -9,6 +9,11 @@
 #include <Evaluation/Purity.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
 #include <filesystem>
+#include <Refactor/Module/Window.hpp>
+#include <Refactor/Module/ConceptDrift.hpp>
+#include <Refactor/Module/Offline.hpp>
+#include <Refactor/Module/OutlierDetect.hpp>
+
 
 using namespace std;
 
@@ -162,6 +167,10 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
   cmd_params.algoType = SESAME::BirchType;
+  cmd_params.winType = SESAME::Landmark;
+  cmd_params.odType = SESAME::Density_OD;
+  cmd_params.cdType = SESAME::Density_CD;
+  cmd_params.offType = SESAME::KMeansPP;
 }
 
 /* command line handling functions */

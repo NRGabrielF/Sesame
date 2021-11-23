@@ -6,6 +6,7 @@
 #define SESAME_INCLUDE_REFACTOR_MODULE_WINDOW_HPP_
 #include <memory>
 #include <vector>
+#include <Refactor/Structure/RefactorParameters.hpp>
 #include <Algorithm/DataStructure/Point.hpp>
 namespace SESAME {
 enum windowType {Landmark, Sliding, Damped};
@@ -13,18 +14,10 @@ enum windowType {Landmark, Sliding, Damped};
 class WindowModel;
 typedef std::shared_ptr<WindowModel> WindowModelPtr;
 
-class WindowModelParameters {
- public:
-  int WindowSize;
-};
-
 class WindowModel {
  public:
-  WindowModelParameters parameters;
-  std::vector<SESAME::PointPtr> windowElement;
   WindowModel();
-  std::vector<SESAME::PointPtr> getWindowElement();
-  bool setWindow(SESAME::windowType w, PointPtr p);
+  bool runWindowModel(SESAME::windowType w, SESAME::RefactorParametersPtr &para,PointPtr p);
 };
 }
 

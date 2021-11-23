@@ -3,10 +3,10 @@
 //
 
 #include <Refactor/Module/ConceptDrift.hpp>
-SESAME::MClusterPtr SESAME::ConceptDrift::fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity) {
+SESAME::MicroClusterPtr SESAME::ConceptDrift::fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity) {
   for(int i = 0; i < para->outlierClusters.size(); i++) {
-    if(para->outlierClusters[i]->getN() >= minDensity) {
-      MClusterPtr temp = para->outlierClusters[i]->copy();
+    if(para->outlierClusters[i]->weight >= minDensity) {
+      MicroClusterPtr temp = para->outlierClusters[i]->copy();
       SESAME_INFO("Outliers transform into clusters!!!");
       para->outlierClusters.erase(para->outlierClusters.begin() + i);
       return temp;
@@ -14,11 +14,11 @@ SESAME::MClusterPtr SESAME::ConceptDrift::fillDensityTransformation(SESAME::Refa
   }
   return nullptr;
 }
-SESAME::MClusterPtr SESAME::ConceptDrift::fillTimeTransformation(SESAME::RefactorParametersPtr &para,
+SESAME::MicroClusterPtr SESAME::ConceptDrift::fillTimeTransformation(SESAME::RefactorParametersPtr &para,
                                                                  double currentTime, double thresholdMininterval) {
   for(int i = 0; i < para->outlierClusters.size(); i++) {
-    if(currentTime - para->outlierClusters[i]->getLastModifyTime() >= thresholdMininterval) {
-      MClusterPtr temp = para->outlierClusters[i]->copy();
+    if(currentTime - para->outlierClusters[i]->lastUpdateTime >= thresholdMininterval) {
+      MicroClusterPtr temp = para->outlierClusters[i]->copy();
       SESAME_INFO("Outliers transform into clusters!!!");
       para->outlierClusters.erase(para->outlierClusters.begin() + i);
       return temp;

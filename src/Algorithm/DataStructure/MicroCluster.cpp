@@ -79,6 +79,7 @@ void SESAME::MicroCluster::insert(PointPtr datapoint,int timestamp)
   LST+=timestamp;
   SST+=timestamp*timestamp;
   centroid=std::move(getCentroid());
+  lastUpdateTime=clock();
 }
 
 //Used only in DBStream
@@ -349,4 +350,3 @@ double SESAME::MicroCluster::inverseError(double x){
 SESAME::MicroClusterPtr SESAME::MicroCluster::copy() {
   return std::make_shared<MicroCluster>(*this);
 }
-

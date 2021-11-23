@@ -23,8 +23,7 @@ class MicroCluster {
  public:
   constexpr static  const double EPSILON = 0.00005;
   constexpr static  const double MIN_VARIANCE = 1e-50;//TODO Need to move ...
-
-  std::vector<int> id;
+   std::vector<int> id;
   dataPoint centroid;
   dataPoint LS;//  the sum of the data values for each dimension
   dataPoint SS;// the sum of the squares of  the data values for each dimension

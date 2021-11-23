@@ -7,15 +7,33 @@
 #include <Refactor/Module/Window.hpp>
 #include <cfloat>
 
+void SESAME::OutlierDetection::insertOutlierCluster(SESAME::PointPtr &p, SESAME::RefactorParametersPtr &para) {
+  double minDistance = DBL_MAX;
+  int closestClusterID = 0;
+  for (int i = 0; i < para->outlierClusters.size(); i++) {
+    double dist = para->outlierClusters[i]->calCentroidDistance(p);
+    if (dist < minDistance) {
+      closestClusterID = i;
+      minDistance = dist;
+    }
+  }
+  if(minDistance <= para->maxInsertDistance) {
+    para->outlierClusters.at(closestClusterID)->insert(p, p->getTimeStamp());
+//    para->outlierClusters.at(closestClusterID)->setLastModifyTime(p->getTimeStamp());
+  } else {
+    MicroClusterPtr m = std::make_shared<MicroCluster>(p->getDimension(), 0);
+    m->insert(p, p->getTimeStamp());
+  //  para->outlierClusters.push_back(m);
+  }
+
+}
 void SESAME::OutlierDetection::runOutlierDetection(SESAME::windowType w,SESAME::oDType o, SESAME::RefactorParametersPtr &para) {
   int closestClusterID;
   double minDistance = DBL_MAX;
   for(auto el : para->windowElement) {
     for (int i = 0; i < para->microClusters.size(); i++) {
       if(w == SESAME::Damped){
-        para->microClusters[i]->updateAttribute(el->getTimeStamp(),
-                                                para->alpha,
-                                                para->lambda);
+        para->microClusters[i]->insert(el,para->alpha,para->lambda);
       }
       double dist = para->microClusters[i]->calCentroidDistance(el);
       if (dist < minDistance) {
@@ -25,10 +43,10 @@ void SESAME::OutlierDetection::runOutlierDetection(SESAME::windowType w,SESAME::
     }
     // new outlier cluster
     if(minDistance <= para->maxInsertDistance) {
-      para->microClusters[closestClusterID]->updateAttribute(el);  // else normally insert into the micro-clusters
+      para->microClusters[closestClusterID]->insert(el, el->getTimeStamp());  // else normally insert into the micro-clusters
     } else{
       // distance is too large then throw the point into outliers
-      para->outliers->insertOutlierCluster(el, para->maxInsertDistance);
+      this->insertOutlierCluster(el, para);
     }
   }
   if(o == SESAME::Density_OD) {

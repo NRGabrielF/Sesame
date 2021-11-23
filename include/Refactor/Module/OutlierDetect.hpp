@@ -18,6 +18,7 @@ typedef std::shared_ptr<OutlierDetection> OutlierDetectionPtr;
 class OutlierDetection {
  public:
   OutlierDetection();
+  void insertOutlierCluster(SESAME::PointPtr &p, SESAME::RefactorParametersPtr &para);
   void runOutlierDetection(SESAME::windowType w, SESAME::oDType o, SESAME::RefactorParametersPtr &para);
 };
 }

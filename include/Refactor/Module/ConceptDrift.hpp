@@ -18,8 +18,8 @@ typedef std::shared_ptr<ConceptDrift> ConceptDriftPtr;
 class ConceptDrift {
  public:
   ConceptDrift();
-  SESAME::MClusterPtr fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity);
-  SESAME::MClusterPtr fillTimeTransformation(SESAME::RefactorParametersPtr &para, double currentTime, double thresholdMininterval);
+  SESAME::MicroClusterPtr fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity);
+  SESAME::MicroClusterPtr fillTimeTransformation(SESAME::RefactorParametersPtr &para, double currentTime, double thresholdMininterval);
   void runConceptDrift(SESAME::cDType cd, SESAME::RefactorParametersPtr &para);
 };
 }

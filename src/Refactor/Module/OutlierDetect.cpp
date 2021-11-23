@@ -30,7 +30,6 @@ void SESAME::OutlierDetection::runOutlierDetection(SESAME::windowType w,SESAME::
       // distance is too large then throw the point into outliers
       para->outliers->insertOutlierCluster(el, para->maxInsertDistance);
     }
-
   }
   if(o == SESAME::Density_OD) {
 

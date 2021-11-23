@@ -23,9 +23,6 @@ SESAME::Controller::Controller(param_t &cmd_params) {
 void SESAME::Controller::runOnlineClustering(SESAME::PointPtr input) {
   bool flag = window_model->runWindowModel(this->window_model_type, this->parameters, input->copy());
   if(flag) {
-    if(window_model_type == SESAME::Damped){
-
-    } else{
       outlier_detection->runOutlierDetection(outlier_detection_type, this->parameters);
       cd_handling->runConceptDrift(concept_drift_handling_type, this->parameters);
     }

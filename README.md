@@ -46,4 +46,4 @@ All MC combinations listed below:
 |      | MC             | Sliding      | Time              | Density                | Connection         |        |      |      |
 
 # Flow chart
-![RandomMatch](docs/RandomMatch.png)
+![RandomMatch](docs/RandomMatch.jpg)

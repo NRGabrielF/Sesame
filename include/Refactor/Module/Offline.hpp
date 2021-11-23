@@ -22,6 +22,7 @@ class OfflineRefinement {
  public:
   class KMeans k_means;
   class DBSCAN db_scan;
+  //TODO Need to add connection based offline refinement
   OfflineRefinement();
   void getFinalClusterCenter(SESAME::RefactorParametersPtr &para);
   void runOfflineRefinement(SESAME::offlineType offline, SESAME::RefactorParametersPtr &para, SESAME::DataSinkPtr sinkPtr);

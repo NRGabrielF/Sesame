@@ -4,13 +4,15 @@
 #include <Refactor/Structure/OutlierBuffer.hpp>
 #include <Refactor/Structure/MCluster.hpp>
 #include <cfloat>
-std::vector<SESAME::MClusterPtr> SESAME::OutlierBuffer::getOutlierClusters() {
+
+//TODO All need modify
+std::vector<SESAME::MicroClusterPtr> SESAME::OutlierBuffer::getOutlierClusters() {
   return this->outlierClusters;
 }
-SESAME::MClusterPtr SESAME::OutlierBuffer::fillDensityTransformation(int minDensity) {
+SESAME::MicroClusterPtr SESAME::OutlierBuffer::fillDensityTransformation(int minDensity) {
   for(int i = 0; i < this->outlierClusters.size(); i++) {
-    if(this->outlierClusters[i]->getN() >= minDensity) {
-      MClusterPtr temp = this->outlierClusters[i]->copy();
+    if(this->outlierClusters[i]->weight >= minDensity) {
+      MicroClusterPtr temp = this->outlierClusters[i]->copy();
       SESAME_INFO("Outliers transform into clusters!!!");
       this->outlierClusters.erase(this->outlierClusters.begin() + i);
       return temp;
@@ -32,7 +34,7 @@ void SESAME::OutlierBuffer::insertOutlierCluster(SESAME::PointPtr &p, int thresh
     this->outlierClusters.at(closestClusterID)->updateAttribute(p);
     this->outlierClusters.at(closestClusterID)->setLastModifyTime(p->getTimeStamp());
   } else {
-    MClusterPtr m = std::make_shared<MCluster>(p->getDimension());
+    MicroClusterPtr m = std::make_shared<SESAME::MicroCluster>(p->getDimension());
     m->updateAttribute(p);
     m->setLastModifyTime(p->getTimeStamp());
     this->outlierClusters.push_back(m);
@@ -45,10 +47,10 @@ SESAME::OutlierBuffer::OutlierBuffer() {
 SESAME::OutlierBuffer::~OutlierBuffer() {
 
 }
-SESAME::MClusterPtr SESAME::OutlierBuffer::fillTimeTransformation(double currentTime, double thresholdMininterval) {
+SESAME::MicroClusterPtr SESAME::OutlierBuffer::fillTimeTransformation(double currentTime, double thresholdMininterval) {
   for(int i = 0; i < this->outlierClusters.size(); i++) {
     if(currentTime - this->outlierClusters[i]->getLastModifyTime() >= thresholdMininterval) {
-      MClusterPtr temp = this->outlierClusters[i]->copy();
+      MicroClusterPtr temp = this->outlierClusters[i]->copy();
       SESAME_INFO("Outliers transform into clusters!!!");
       this->outlierClusters.erase(this->outlierClusters.begin() + i);
       return temp;

@@ -93,7 +93,7 @@ add_subdirectory(src)
 # Add Library
 get_source_sesame(sesame_SOURCE_FILES)
 get_header_sesame(sesame_HEADER_FILES)
-add_library(sesame SHARED ${sesame_SOURCE_FILES} ${sesame_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR} include/Refactor/WinModel/Landmark.hpp include/Refactor/WinModel/Sliding.hpp include/Refactor/WinModel/Damped.hpp src/Refactor/WinModel/Landmark.cpp src/Refactor/WinModel/Sliding.cpp src/Refactor/WinModel/Damped.cpp include/Refactor/Structure/OutlierBuffer.hpp src/Refactor/Structure/OutlierBuffer.cpp include/Refactor/Controller.hpp include/Refactor/Module/Window.hpp include/Refactor/Module/Offline.hpp include/Refactor/Module/ConceptDrift.hpp include/Refactor/Module/OutlierDetect.hpp src/Refactor/Module/Window.cpp src/Refactor/Module/Offline.cpp src/Refactor/Module/ConceptDrift.cpp src/Refactor/Module/OutlierDetect.cpp src/Refactor/Controller.cpp include/Refactor/Structure/RefactorParameters.hpp)
+add_library(sesame SHARED ${sesame_SOURCE_FILES} ${sesame_HEADER_FILES} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 target_include_directories(sesame PUBLIC "include")
 target_include_directories(sesame PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(sesame PUBLIC ${LIBRARIES})

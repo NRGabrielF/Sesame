@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
-#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Refactor/RefactorParameters.hpp>
 
 namespace SESAME {
 enum cDType {Density_CD, Time_CD};

@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
-#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Refactor/RefactorParameters.hpp>
 #include <Algorithm/OfflineClustering/KMeans.hpp>
 #include <Algorithm/OfflineClustering/DBSCAN.hpp>
 #include <Sinks/DataSink.hpp>

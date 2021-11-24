@@ -7,7 +7,6 @@
 #include <memory>
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
-#include <Refactor/Structure/OutlierBuffer.hpp>
 #include <Algorithm/DataStructure/MicroCluster.hpp>
 
 namespace SESAME {
@@ -28,7 +27,7 @@ class RefactorParameters {
   std::vector<MicroClusterPtr> outlierClusters;
   std::vector<PointPtr> windowElement;
   std::vector<MicroClusterPtr> microClusters;
-  std::vector<MicroClusterPtr> finalClusterCenters;
+  std::vector<PointPtr> finalClusterCenters;
 };
 }
 

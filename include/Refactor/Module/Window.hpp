@@ -6,7 +6,7 @@
 #define SESAME_INCLUDE_REFACTOR_MODULE_WINDOW_HPP_
 #include <memory>
 #include <vector>
-#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Refactor/RefactorParameters.hpp>
 #include <Algorithm/DataStructure/Point.hpp>
 namespace SESAME {
 enum windowType {Landmark, Sliding, Damped};

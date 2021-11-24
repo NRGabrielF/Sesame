@@ -3,6 +3,7 @@
 //
 
 #include <Refactor/Module/ConceptDrift.hpp>
+#include <Utils/Logger.hpp>
 SESAME::MicroClusterPtr SESAME::ConceptDrift::fillDensityTransformation(SESAME::RefactorParametersPtr &para, double minDensity) {
   for(int i = 0; i < para->outlierClusters.size(); i++) {
     if(para->outlierClusters[i]->weight >= minDensity) {

@@ -8,7 +8,7 @@
 #include <vector>
 #include <Algorithm/DataStructure/Point.hpp>
 #include <Refactor/Module/Window.hpp>
-#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Refactor/RefactorParameters.hpp>
 namespace SESAME {
 enum oDType {Density_OD, Time_OD};
 

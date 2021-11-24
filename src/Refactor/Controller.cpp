@@ -14,7 +14,6 @@ SESAME::Controller::Controller(param_t &cmd_params) {
   this->parameters->numberOfClusters = cmd_params.clusterNumber;
   this->parameters->minDensityTransform = 2;
   this->parameters->minTimeTransform = 7;
-  this->parameters->outliers = std::make_shared<OutlierBuffer>();
   this->window_model_type = cmd_params.winType;
   this->concept_drift_handling_type = cmd_params.cdType;
   this->outlier_detection_type = cmd_params.odType;

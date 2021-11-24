@@ -11,7 +11,7 @@
 #include <Refactor/Structure/MCluster.hpp>
 #include <Algorithm/Algorithm.hpp>
 #include <Utils/BenchmarkUtils.hpp>
-#include <Refactor/Structure/RefactorParameters.hpp>
+#include <Refactor/RefactorParameters.hpp>
 
 namespace SESAME {
 

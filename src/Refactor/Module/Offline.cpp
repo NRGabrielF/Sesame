@@ -4,11 +4,12 @@
 #include <Sinks/DataSink.hpp>
 #include <Refactor/Module/Offline.hpp>
 #include <Algorithm/DataStructure/DataStructureFactory.hpp>
+#include <Refactor/RefactorParameters.hpp>
 
 void SESAME::OfflineRefinement::getFinalClusterCenter(SESAME::RefactorParametersPtr &para) {
   SESAME_INFO("The mid cluster number is:" << para->microClusters .size());
   for(int i = 0; i < para->microClusters.size(); i++) {
-    MClusterPtr mc = para->microClusters.at(i);
+    MicroClusterPtr mc = para->microClusters.at(i);
     PointPtr center = DataStructureFactory::createPoint(i,1,para->dimension, 0);
     center->setClusteringCenter(i);
     for(int j = 0; j < para->dimension; j++) {

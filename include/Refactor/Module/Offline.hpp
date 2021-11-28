@@ -13,7 +13,7 @@
 #include <Sinks/DataSink.hpp>
 
 namespace SESAME {
-enum offlineType {KMeans, KMeansPP, DBSCAN, Connection};
+enum offlineType {KM, KMPP, DB, Connection};
 
 class OfflineRefinement;
 typedef std::shared_ptr<OfflineRefinement> OfflineRefinementPtr;

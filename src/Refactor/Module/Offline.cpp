@@ -25,7 +25,7 @@ void SESAME::OfflineRefinement::runOfflineRefinement(SESAME::offlineType offline
   this->getFinalClusterCenter(para);
   vector <vector<PointPtr>> groups;
   std::vector<std::vector<PointPtr>> oldGroups, newGroups;
-  if(offline == SESAME::KMeans) {
+  if(offline == SESAME::KM) {
     this->k_means.runKMeans(para->numberOfClusters,
                        para->microClusters.size(),
                        para->finalClusterCenters,
@@ -35,7 +35,7 @@ void SESAME::OfflineRefinement::runOfflineRefinement(SESAME::offlineType offline
     // store the result input output
     this->k_means.produceResult(oldGroups, sinkPtr);
 
-  } else if(offline == SESAME::KMeansPP) {
+  } else if(offline == SESAME::KMPP) {
     this->k_means.runKMeans(para->numberOfClusters,
                              para->microClusters.size(),
                              para->finalClusterCenters,
@@ -45,7 +45,7 @@ void SESAME::OfflineRefinement::runOfflineRefinement(SESAME::offlineType offline
 
     this->k_means.produceResult(oldGroups, sinkPtr);
 
-  } else if(offline == SESAME::DBSCAN) {
+  } else if(offline == SESAME::DB) {
     this->db_scan.run(para->finalClusterCenters);
     this->db_scan.produceResult(para->finalClusterCenters, sinkPtr);
 

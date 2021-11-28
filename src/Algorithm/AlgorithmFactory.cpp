@@ -10,9 +10,6 @@
 #include <Algorithm/DBStream.hpp>
 #include <Algorithm/Birch.hpp>
 #include <Algorithm/EDMStream.hpp>
-#include <Refactor/WinModel/Landmark.hpp>
-#include <Refactor/WinModel/Damped.hpp>
-#include <Refactor/WinModel/Sliding.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
 
 SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
@@ -40,17 +37,9 @@ SESAME::AlgorithmPtr SESAME::AlgorithmFactory::create(param_t &cmd_params) {
     shared_ptr<DBStream> dbStream = std::make_shared<DBStream>(cmd_params);
     return (SESAME::AlgorithmPtr) dbStream;
   }
-  if (cmd_params.algoType == SESAME::LandmarkType) {
+  if (cmd_params.algoType == SESAME::RegroupType) {
     shared_ptr<Landmark> landmark = std::make_shared<Landmark>(cmd_params);
     return (SESAME::AlgorithmPtr) landmark;
-  }
-  if (cmd_params.algoType == SESAME::DampedType) {
-    shared_ptr<Damped> damped = std::make_shared<Damped>(cmd_params);
-    return (SESAME::AlgorithmPtr) damped;
-  }
-  if (cmd_params.algoType == SESAME::SlidingType) {
-    shared_ptr<Sliding> sliding = std::make_shared<Sliding>(cmd_params);
-    return (SESAME::AlgorithmPtr) sliding;
   }
   throw std::invalid_argument("Unsupported");
 

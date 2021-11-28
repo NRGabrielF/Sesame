@@ -8,7 +8,6 @@
 #include <Refactor/Module/OutlierDetect.hpp>
 #include <Refactor/Module/Offline.hpp>
 #include <Refactor/Module/ConceptDrift.hpp>
-#include <Refactor/Structure/MCluster.hpp>
 #include <Algorithm/Algorithm.hpp>
 #include <Utils/BenchmarkUtils.hpp>
 #include <Refactor/RefactorParameters.hpp>

@@ -35,12 +35,12 @@ void SESAME::KMeans::randomSelectCenters(int numberOfCenters, int numberOfInput,
   }
 
   // print information
-  if (indexs.size() != numberOfCenters) SESAME_INFO("ERROR!!! number of centers in indexs is not right!");
-  cout << "Randomly selected indexes:";
-  for (int index : indexs) {
-    cout << index << " ";
-  }
-  cout << endl;
+//  if (indexs.size() != numberOfCenters) SESAME_INFO("ERROR!!! number of centers in indexs is not right!");
+//  // cout << "Randomly selected indexes:";
+//  for (int index : indexs) {
+//    // cout << index << " ";
+//  }
+//  // cout << endl;
 }
 
 /**
@@ -55,7 +55,7 @@ void SESAME::KMeans::selectCentersFromWeight(int numberOfCenters, int numberOfIn
 
   default_random_engine e(time(NULL));
   uniform_real_distribution<double> u(0.0, 1.0);
-  cout << "KMeans++ randomly select indexes: ";
+  // cout << "KMeans++ randomly select indexes: ";
   int times = 0;
   while (times < numberOfCenters) {
     double sum = 0;
@@ -91,7 +91,7 @@ void SESAME::KMeans::selectCentersFromWeight(int numberOfCenters, int numberOfIn
         if (count(indexs.begin(), indexs.end(), leftOver.at(i)->getIndex()) == 0) {
           indexs.push_back(leftOver.at(i)->getIndex());
           centers.push_back(leftOver.at(i)->copy());
-          cout << leftOver.at(i)->getIndex() << " ";
+          // cout << leftOver.at(i)->getIndex() << " ";
           break;
         }
       }
@@ -99,7 +99,7 @@ void SESAME::KMeans::selectCentersFromWeight(int numberOfCenters, int numberOfIn
     }
     times++;
   }
-  cout << endl;
+  // cout << endl;
 }
 
 /**
@@ -234,7 +234,7 @@ void SESAME::KMeans::produceResult(std::vector<std::vector<SESAME::PointPtr>> &g
 
 void SESAME::KMeans::runKMeans(int numberOfCenters,
                                int numberOfInput,
-                               std::vector<PointPtr> &input,
+                               std::vector<PointPtr> &onlineResult,
                                std::vector<std::vector<PointPtr>> &oldGroups,
                                std::vector<std::vector<PointPtr>> &newGroups,
                                bool KMeansPP) {
@@ -242,7 +242,14 @@ void SESAME::KMeans::runKMeans(int numberOfCenters,
   std::vector<PointPtr> centers; // store the changing clustering centers
 
   bool flagToStop = false;
+  std::vector<PointPtr> input;
 
+  for(int i = 0; i < onlineResult.size(); i++) {
+    if(onlineResult.at(i)->getIndex() > 0) {
+      input.push_back(onlineResult.at(i)->copy());
+    }
+  }
+  numberOfInput = input.size();
   if (KMeansPP) {
     // run the first step in KMeans++
     SESAME_INFO("KMeans++ start!!!");

@@ -4,6 +4,7 @@
 #include <Utils/UtilityFunctions.hpp>
 #include <Evaluation/Purity.hpp>
 #include <Utils/Logger.hpp>
+#include <cmath>
 
 /**
  * @Description: Please note that the order of the cluster index has to be consecutive
@@ -57,7 +58,7 @@ double SESAME::Purity::getMaxBelongs(std::vector<SESAME::PointPtr> &singleSample
   return max;
 }
 
-void SESAME::Purity::purityCost(const std::vector<SESAME::PointPtr> &center,
+double SESAME::Purity::purityCost(const std::vector<SESAME::PointPtr> &center,
                                const std::vector<SESAME::PointPtr> &result,
                                int dimension) {
   std::vector<PointPtr> input;
@@ -73,6 +74,6 @@ void SESAME::Purity::purityCost(const std::vector<SESAME::PointPtr> &center,
     sum += getMaxBelongs(el, GT);
   }
   if(!result.empty()) {
-    SESAME_INFO("Purity:" << sum / (double)result.size());
-  } else SESAME_INFO("Purity: 0");
+    return sum / (double)result.size();
+  } else return 0;
 }

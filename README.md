@@ -9,3 +9,22 @@
 5. first submission - 1/Dec/2021
 
 Add-on. Learn how to draw figure using python -- Zhonghao.
+
+# DataSet
+
+| DaTaset          | Used by | characteristics |
+| ---------------- | ------- | --------------- |
+| KDD-99           |         |                 |
+| ForestType       |         |                 |
+| Powersupply      |         |                 |
+| Synthetic Data 1 |         |                 |
+| Synthetic Data 2 |         |                 |
+
+
+
+# ForesetType
+
+### BIRCH
+
+1. ### Parameter:
+

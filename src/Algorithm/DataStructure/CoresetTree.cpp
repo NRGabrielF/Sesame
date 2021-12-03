@@ -376,7 +376,6 @@ double SESAME::CoresetTree::treeNodeSplitCost(TreeNodePtr node, PointPtr centreA
       } else {
         centroidCoordinateCentre = centreB->getFeatureItem(l);
       }
-
       distanceB += (centroidCoordinatePoint - centroidCoordinateCentre) *
           (centroidCoordinatePoint - centroidCoordinateCentre);
     }

@@ -21,8 +21,8 @@ int main(int argc, char **argv) {
   param_t cmd_params;
   BenchmarkUtils::defaultParam(cmd_params);
   cmd_params.pointNumber = 15120;
-  cmd_params.seed = 10;
-  cmd_params.clusterNumber = 10;
+  cmd_params.seed = 0;
+  cmd_params.clusterNumber = 30;
   cmd_params.dimension = 54;
   cmd_params.coresetSize = 100;
   cmd_params.lastArrivingNum = 60;
@@ -33,24 +33,29 @@ int main(int argc, char **argv) {
   cmd_params.initBuffer = 500;
   cmd_params.offlineTimeWindow = 2;
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::CluStreamType;
-  BenchmarkUtils::parseArgs(argc, argv, cmd_params);
-  std::vector<SESAME::PointPtr> input;
-  std::vector<SESAME::PointPtr> results;
 
-  //Create Spout.
-  SESAME::DataSourcePtr sourcePtr = SESAME::DataSourceFactory::create();
+  std:: ofstream outfile(cmd_params.outputPath);
+  for(int i = 0; i < 100; i++) {
+    cmd_params.seed ++;
+    BenchmarkUtils::parseArgs(argc, argv, cmd_params);
+    std::vector<SESAME::PointPtr> input;
+    std::vector<SESAME::PointPtr> results;
 
-  //Directly load data from file. TODO: configure it to load from external sensors, e.g., HTTP.
-  BenchmarkUtils::loadData(cmd_params, sourcePtr);
+    //Create Spout.
+    SESAME::DataSourcePtr sourcePtr = SESAME::DataSourceFactory::create();
 
-  //Create Sink.
-  SESAME::DataSinkPtr sinkPtr = SESAME::DataSinkFactory::create();
+    //Directly load data from file. TODO: configure it to load from external sensors, e.g., HTTP.
+    BenchmarkUtils::loadData(cmd_params, sourcePtr);
 
-  //Create Algorithm.
-  SESAME::AlgorithmPtr algoPtr = SESAME::AlgorithmFactory::create(cmd_params);
+    //Create Sink.
+    SESAME::DataSinkPtr sinkPtr = SESAME::DataSinkFactory::create();
 
-  //Run algorithm producing results.
-  BenchmarkUtils::runBenchmark(cmd_params, sourcePtr, sinkPtr, algoPtr);
+    //Create Algorithm.
+    SESAME::AlgorithmPtr algoPtr = SESAME::AlgorithmFactory::create(cmd_params);
+
+    //Run algorithm producing results.
+    BenchmarkUtils::runBenchmark(cmd_params, outfile, sourcePtr, sinkPtr, algoPtr);
+  }
+  outfile.close();
 }
 

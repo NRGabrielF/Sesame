@@ -127,8 +127,8 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
  */
 void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.pointNumber = 15120; // number of the data points in the dataset, use the whole dataset to run benchmark
-  cmd_params.seed = 10;
-  cmd_params.clusterNumber = 10;
+  cmd_params.seed = 1;
+  cmd_params.clusterNumber = 30;
   cmd_params.dimension = 54;
   cmd_params.coresetSize = 100;
   cmd_params.lastArrivingNum = 60;
@@ -140,7 +140,7 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.offlineTimeWindow = 2;
   cmd_params.maxLeafNodes = 3;
   cmd_params.maxInternalNodes = 3;
-  cmd_params.thresholdDistance = 6550;
+  cmd_params.thresholdDistance = 3550;
   cmd_params.minPoints = 10;
   cmd_params.epsilon = 50;
   cmd_params.base = 2;
@@ -161,7 +161,7 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::BirchType;
+  cmd_params.algoType = SESAME::StreamKMeansType;
 }
 
 /* command line handling functions */
@@ -200,6 +200,7 @@ void BenchmarkUtils::loadData(param_t &cmd_params, SESAME::DataSourcePtr dataSou
   SESAME_INFO("Finished loading input data");
 }
 void BenchmarkUtils::runBenchmark(param_t &cmd_params,
+                                  std::ofstream &out,
                                   SESAME::DataSourcePtr sourcePtr,
                                   SESAME::DataSinkPtr sinkPtr,
                                   SESAME::AlgorithmPtr algoPtr) {
@@ -211,12 +212,14 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
   while (!sinkPtr->isFinished());//wait for sink to stop.
 
   //Store results.
-  algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults());
+  // algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults());
   SESAME_INFO("Finished store results: " << sinkPtr->getResults().size());
 
-  SESAME::Evaluation::runEvaluation(cmd_params.pointNumber,
-                                    sinkPtr->getResults().size(),
+  SESAME::Evaluation::runEvaluation(cmd_params.seed,
+                                    cmd_params.clusterNumber,
+                                    cmd_params.coresetSize,
                                     cmd_params.dimension,
+                                    out,
                                     sourcePtr->getInputs(),
                                     sinkPtr->getResults());
 

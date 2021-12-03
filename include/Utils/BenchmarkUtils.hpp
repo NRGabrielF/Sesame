@@ -67,7 +67,6 @@ class BenchmarkUtils {
   static void defaultParam(param_t &cmd_params);
   static void loadData(param_t &cmd_params, SESAME::DataSourcePtr dataSourcePtr);
   static void runBenchmark(param_t &cmd_params,
-                           std::ofstream &outfile,
                            SESAME::DataSourcePtr sourcePtr,
                            SESAME::DataSinkPtr sinkPtr,
                            SESAME::AlgorithmPtr algoPtr);

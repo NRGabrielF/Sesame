@@ -18,7 +18,6 @@ class Evaluation {
                             int ClusterNumber,
                             int CoresetSize,
                             int dimension,
-                            std::ofstream &outfile,
                             const std::vector<PointPtr> &inputs,
                             const std::vector<PointPtr> &results);
 

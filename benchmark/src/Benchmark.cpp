@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
   cmd_params.seed = 0;
   cmd_params.clusterNumber = 30;
   cmd_params.dimension = 54;
-  cmd_params.coresetSize = 100;
+  cmd_params.coresetSize = 5;
   cmd_params.lastArrivingNum = 60;
   cmd_params.timeWindow = 6;
   cmd_params.timeInterval = 4;
@@ -34,9 +34,8 @@ int main(int argc, char **argv) {
   cmd_params.offlineTimeWindow = 2;
   cmd_params.outputPath = "results.txt";
 
-  std:: ofstream outfile(cmd_params.outputPath);
-  for(int i = 0; i < 100; i++) {
-    cmd_params.seed ++;
+  for(int i = 10; i < 2000; i=i+5) {
+    cmd_params.coresetSize = cmd_params.coresetSize + 5;
     BenchmarkUtils::parseArgs(argc, argv, cmd_params);
     std::vector<SESAME::PointPtr> input;
     std::vector<SESAME::PointPtr> results;
@@ -54,8 +53,7 @@ int main(int argc, char **argv) {
     SESAME::AlgorithmPtr algoPtr = SESAME::AlgorithmFactory::create(cmd_params);
 
     //Run algorithm producing results.
-    BenchmarkUtils::runBenchmark(cmd_params, outfile, sourcePtr, sinkPtr, algoPtr);
+    BenchmarkUtils::runBenchmark(cmd_params, sourcePtr, sinkPtr, algoPtr);
   }
-  outfile.close();
 }
 

@@ -200,7 +200,6 @@ void BenchmarkUtils::loadData(param_t &cmd_params, SESAME::DataSourcePtr dataSou
   SESAME_INFO("Finished loading input data");
 }
 void BenchmarkUtils::runBenchmark(param_t &cmd_params,
-                                  std::ofstream &out,
                                   SESAME::DataSourcePtr sourcePtr,
                                   SESAME::DataSinkPtr sinkPtr,
                                   SESAME::AlgorithmPtr algoPtr) {
@@ -219,7 +218,6 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
                                     cmd_params.clusterNumber,
                                     cmd_params.coresetSize,
                                     cmd_params.dimension,
-                                    out,
                                     sourcePtr->getInputs(),
                                     sinkPtr->getResults());
 

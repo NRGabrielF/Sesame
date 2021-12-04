@@ -20,11 +20,10 @@ int main(int argc, char **argv) {
   //Parse parameters.
   param_t cmd_params;
   BenchmarkUtils::defaultParam(cmd_params);
+  BenchmarkUtils::parseArgs(argc, argv, cmd_params);
   cmd_params.pointNumber = 15120;
-  cmd_params.seed = 10;
-  cmd_params.clusterNumber = 3;
+  cmd_params.coresetSize = cmd_params.clusterNumber * 200;
   cmd_params.dimension = 54;
-  cmd_params.coresetSize = 5;
   cmd_params.lastArrivingNum = 60;
   cmd_params.timeWindow = 6;
   cmd_params.timeInterval = 4;
@@ -34,29 +33,24 @@ int main(int argc, char **argv) {
   cmd_params.offlineTimeWindow = 2;
   cmd_params.outputPath = "results.txt";
 
-  for(int i = 3; i < 20; i=i + 1) {
-    cmd_params.clusterNumber = i;
-    cmd_params.coresetSize = cmd_params.clusterNumber * 200; // according to the paper
-    BenchmarkUtils::parseArgs(argc, argv, cmd_params);
-    std::vector<SESAME::PointPtr> input;
-    std::vector<SESAME::PointPtr> results;
+  std::vector<SESAME::PointPtr> input;
+  std::vector<SESAME::PointPtr> results;
 
-    //Create Spout.
-    SESAME::DataSourcePtr sourcePtr = SESAME::DataSourceFactory::create();
+  //Create Spout.
+  SESAME::DataSourcePtr sourcePtr = SESAME::DataSourceFactory::create();
 
-    //Directly load data from file. TODO: configure it to load from external sensors, e.g., HTTP.
-    BenchmarkUtils::loadData(cmd_params, sourcePtr);
+  //Directly load data from file. TODO: configure it to load from external sensors, e.g., HTTP.
+  BenchmarkUtils::loadData(cmd_params, sourcePtr);
 
-    //Create Sink.
-    SESAME::DataSinkPtr sinkPtr = SESAME::DataSinkFactory::create();
+  //Create Sink.
+  SESAME::DataSinkPtr sinkPtr = SESAME::DataSinkFactory::create();
 
-    //Create Algorithm.
-    SESAME::AlgorithmPtr algoPtr = SESAME::AlgorithmFactory::create(cmd_params);
+  //Create Algorithm.
+  SESAME::AlgorithmPtr algoPtr = SESAME::AlgorithmFactory::create(cmd_params);
 
-    //Run algorithm producing results.
-    BenchmarkUtils::runBenchmark(cmd_params, sourcePtr, sinkPtr, algoPtr);
-    std::vector<SESAME::PointPtr>().swap(input);
-    std::vector<SESAME::PointPtr>().swap(results);
-  }
+  //Run algorithm producing results.
+  BenchmarkUtils::runBenchmark(cmd_params, sourcePtr, sinkPtr, algoPtr);
+  std::vector<SESAME::PointPtr>().swap(input);
+  std::vector<SESAME::PointPtr>().swap(results);
 }
 

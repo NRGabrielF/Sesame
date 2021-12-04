@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   param_t cmd_params;
   BenchmarkUtils::defaultParam(cmd_params);
   cmd_params.pointNumber = 15120;
-  cmd_params.seed = 0;
+  cmd_params.seed = 10;
   cmd_params.clusterNumber = 3;
   cmd_params.dimension = 54;
   cmd_params.coresetSize = 5;

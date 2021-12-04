@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   BenchmarkUtils::defaultParam(cmd_params);
   cmd_params.pointNumber = 15120;
   cmd_params.seed = 0;
-  cmd_params.clusterNumber = 30;
+  cmd_params.clusterNumber = 3;
   cmd_params.dimension = 54;
   cmd_params.coresetSize = 5;
   cmd_params.lastArrivingNum = 60;
@@ -34,8 +34,9 @@ int main(int argc, char **argv) {
   cmd_params.offlineTimeWindow = 2;
   cmd_params.outputPath = "results.txt";
 
-  for(int i = 10; i < 2000; i=i+5) {
-    cmd_params.coresetSize = cmd_params.coresetSize + 5;
+  for(int i = 3; i < 20; i=i + 1) {
+    cmd_params.clusterNumber = i;
+    cmd_params.coresetSize = cmd_params.clusterNumber * 200; // according to the paper
     BenchmarkUtils::parseArgs(argc, argv, cmd_params);
     std::vector<SESAME::PointPtr> input;
     std::vector<SESAME::PointPtr> results;

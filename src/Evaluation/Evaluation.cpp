@@ -17,6 +17,5 @@ void SESAME::Evaluation::runEvaluation(int seed,
 
   double cmm = SESAME::CMM::CMMCost(dimension,inputs,center);
 
-  std::cout << "seed: " << seed << "   ClusterNumber: " << clusterNumber << "   CoresetSize: "<< coresetSize <<
-  "   cmm: " << round(cmm * 10000) / 10000 << "   purity: " << round(purity * 10000) / 10000;
+  std::cout << "seed: " << seed << "   ClusterNumber: " << clusterNumber << "   CoresetSize: "<< coresetSize <<"   cmm: " << round(cmm * 10000) / 10000 << "   purity: " << round(purity * 10000) / 10000 << std::endl;
 }

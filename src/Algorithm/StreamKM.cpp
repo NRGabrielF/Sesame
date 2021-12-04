@@ -60,6 +60,10 @@ void SESAME::StreamKM::runOfflineClustering(DataSinkPtr sinkPtr) {
                      true);
   // store the result input output
   this->km.produceResult(oldGroups, sinkPtr);
+  std::vector<SESAME::PointPtr>().swap(centers);
+  std::vector <vector<PointPtr>>().swap(groups);
+  std::vector<std::vector<PointPtr>>().swap(oldGroups);
+  std::vector<std::vector<PointPtr>>().swap(newGroups);
 //  this->km.storeResult(oldGroups, centers);
 //  this->km.groupPointsByCenters((int) centers.size(), (int) this->inputs.size(),
 //                                const_cast<vector <PointPtr> &>(this->inputs), centers, groups);

@@ -55,6 +55,8 @@ int main(int argc, char **argv) {
 
     //Run algorithm producing results.
     BenchmarkUtils::runBenchmark(cmd_params, sourcePtr, sinkPtr, algoPtr);
+    std::vector<SESAME::PointPtr>().swap(input);
+    std::vector<SESAME::PointPtr>().swap(results);
   }
 }
 

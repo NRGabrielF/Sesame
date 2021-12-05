@@ -221,9 +221,9 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
   // algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults());
   SESAME_INFO("Finished store results: " << sinkPtr->getResults().size());
 
-  SESAME::Evaluation::runEvaluation(cmd_params.seed,
-                                    cmd_params.clusterNumber,
-                                    cmd_params.coresetSize,
+  SESAME::Evaluation::runEvaluation(cmd_params.maxLeafNodes,
+                                    cmd_params.maxInternalNodes,
+                                    cmd_params.thresholdDistance,
                                     cmd_params.dimension,
                                     sourcePtr->getInputs(),
                                     sinkPtr->getResults());

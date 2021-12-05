@@ -44,7 +44,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
     /* getopt_long stores the option index here. */
     int option_index = 0;
 
-    c = getopt_long(argc, argv, "p:c:d:s:S:a:T:t:C:r:b:O:h",
+    c = getopt_long(argc, argv, "p:c:d:s:S:a:T:t:C:r:b:O:h:D:m:M:k",
                     long_options, &option_index);
 
     /* Detect the end of the options. */
@@ -90,13 +90,13 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
         else SESAME_ERROR("non selected algorithm! ");
         SESAME_INFO("configure cmd_params.algoType: ");
         break;
-      case 'T': cmd_params.seed = atoi(optarg);
+      case 'm': cmd_params.maxLeafNodes = atoi(optarg);
         SESAME_INFO("configure cmd_params.timeWindow: " << cmd_params.timeWindow);
         break;
-      case 't': cmd_params.seed = atoi(optarg);
+      case 'M': cmd_params.maxInternalNodes = atoi(optarg);
         SESAME_INFO("configure cmd_params.timeInterval: " << cmd_params.timeInterval);
         break;
-      case 'C': cmd_params.seed = atoi(optarg);
+      case 'D': cmd_params.thresholdDistance = atoi(optarg);
         SESAME_INFO("configure cmd_params.onlineClusterNumber: " << cmd_params.onlineClusterNumber);
         break;
       case 'r': cmd_params.seed = atoi(optarg);

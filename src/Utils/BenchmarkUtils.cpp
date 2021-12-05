@@ -80,8 +80,15 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
       case 'S':cmd_params.seed = atoi(optarg);
         SESAME_INFO("configure cmd_params.seed: " << cmd_params.seed);
         break;
-      case 'a': cmd_params.seed = atoi(optarg);
-        SESAME_INFO("configure cmd_params.lastArrivingNum: " << cmd_params.lastArrivingNum);
+      case 'a':
+        if(atoi(optarg) == 0) cmd_params.algoType = SESAME::StreamKMeansType;
+        else if(atoi(optarg) == 1) cmd_params.algoType = SESAME::BirchType;
+        else if(atoi(optarg) == 2) cmd_params.algoType = SESAME::EDMStreamType;
+        else if(atoi(optarg) == 3) cmd_params.algoType = SESAME::DBStreamType;
+        else if(atoi(optarg) == 4) cmd_params.algoType = SESAME::CluStreamType;
+        else if(atoi(optarg) == 5) cmd_params.algoType = SESAME::DenStreamType;
+        else SESAME_ERROR("non selected algorithm! ");
+        SESAME_INFO("configure cmd_params.algoType: ");
         break;
       case 'T': cmd_params.seed = atoi(optarg);
         SESAME_INFO("configure cmd_params.timeWindow: " << cmd_params.timeWindow);

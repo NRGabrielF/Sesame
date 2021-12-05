@@ -10,6 +10,7 @@
 #include <Sources/DataSourceFactory.hpp>
 #include <Sinks/DataSinkFactory.hpp>
 #include <Algorithm/AlgorithmFactory.hpp>
+#include <filesystem>
 
 using namespace std;
 
@@ -19,18 +20,19 @@ int main(int argc, char **argv) {
 
   //Parse parameters.
   param_t cmd_params;
-  BenchmarkUtils::defaultParam(cmd_params);
+ //BenchmarkUtils::defaultParam(cmd_params);
   BenchmarkUtils::parseArgs(argc, argv, cmd_params);
-  cmd_params.pointNumber = 15120;
-  cmd_params.coresetSize = cmd_params.clusterNumber * 200;
-  cmd_params.dimension = 54;
-  cmd_params.lastArrivingNum = 60;
-  cmd_params.timeWindow = 6;
-  cmd_params.timeInterval = 4;
-  cmd_params.onlineClusterNumber = 15;
-  cmd_params.radiusFactor = 70;
-  cmd_params.initBuffer = 500;
-  cmd_params.offlineTimeWindow = 2;
+  // cmd_params.pointNumber = 15120;
+  //cmd_params.coresetSize = cmd_params.clusterNumber * 200;
+//  cmd_params.dimension = 54;
+//  cmd_params.lastArrivingNum = 60;
+//  cmd_params.timeWindow = 6;
+//  cmd_params.timeInterval = 4;
+//  cmd_params.onlineClusterNumber = 15;
+//  cmd_params.radiusFactor = 70;
+//  cmd_params.initBuffer = 500;
+//  cmd_params.offlineTimeWindow = 2;
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
   cmd_params.outputPath = "results.txt";
 
   std::vector<SESAME::PointPtr> input;

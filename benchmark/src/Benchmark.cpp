@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 //  cmd_params.radiusFactor = 70;
 //  cmd_params.initBuffer = 500;
 //  cmd_params.offlineTimeWindow = 2;
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
+  // cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Zelnik.txt";
   cmd_params.outputPath = "results.txt";
 
   std::vector<SESAME::PointPtr> input;

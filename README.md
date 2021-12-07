@@ -12,19 +12,61 @@ Add-on. Learn how to draw figure using python -- Zhonghao.
 
 # DataSet
 
-| DaTaset          | Used by | characteristics |
-| ---------------- | ------- | --------------- |
-| KDD-99           |         |                 |
-| ForestType       |         |                 |
-| Powersupply      |         |                 |
-| Synthetic Data 1 |         |                 |
-| Synthetic Data 2 |         |                 |
+| DaTaset           | Used by | characteristics       |
+| ----------------- | ------- | --------------------- |
+| KDD-99            |         |                       |
+| ForestType        |         |                       |
+| Powersupply       |         |                       |
+| Synthetic Diamond |         | has concept drift     |
+| Synthetic Zelnik  |         | containing noise data |
 
 
 
 # ForesetType
 
-### BIRCH
+| Algorithm    | CMM    | Purity | Parameter                                       |
+| ------------ | ------ | ------ | ----------------------------------------------- |
+| StreamKMeans | 0.7998 | 0.4485 | clusterNumber = 3; coresetSize = 600; seed = 10 |
+| BIRCH        |        |        |                                                 |
+| EDMStream    |        |        |                                                 |
 
-1. ### Parameter:
+
+
+# KDD-99
+
+| Algorithm    | CMM    | Purity | Parameter                                       |
+| ------------ | ------ | ------ | ----------------------------------------------- |
+| StreamKMeans | 0.7998 | 0.4485 | clusterNumber = 3; coresetSize = 600; seed = 10 |
+| BIRCH        |        |        |                                                 |
+| EDMStream    |        |        |                                                 |
+
+
+
+# PowerSupply
+
+| Algorithm    | CMM    | Purity | Parameter                                         |
+| ------------ | ------ | ------ | ------------------------------------------------- |
+| StreamKMeans | 0.7577 | 0.5993 | clusterNumber = 24; coresetSize = 4800; seed = 10 |
+| BIRCH        |        |        |                                                   |
+| EDMStream    |        |        |                                                   |
+
+
+
+# Diamond
+
+| Algorithm    | CMM    | Purity | Parameter                                        |
+| ------------ | ------ | ------ | ------------------------------------------------ |
+| StreamKMeans | 0.7394 | 0.5217 | clusterNumber = 9; coresetSize = 1800; seed = 10 |
+| BIRCH        |        |        |                                                  |
+| EDMStream    |        |        |                                                  |
+
+
+
+# Zelnik
+
+| Algorithm    | CMM  | Purity | Parameter                                      |
+| ------------ | ---- | ------ | ---------------------------------------------- |
+| StreamKMeans | 0.75 | 0.246  | clusterNumber = 4; coresetSize = 80; seed = 10 |
+| BIRCH        |      |        |                                                |
+| EDMStream    |      |        |                                                |
 

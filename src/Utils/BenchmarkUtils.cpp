@@ -96,7 +96,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
       case 'M': cmd_params.maxInternalNodes = atoi(optarg);
         SESAME_INFO("configure cmd_params.timeInterval: " << cmd_params.timeInterval);
         break;
-      case 'D': cmd_params.thresholdDistance = atoi(optarg);
+      case 'D': cmd_params.thresholdDistance = atof(optarg);
         SESAME_INFO("configure cmd_params.onlineClusterNumber: " << cmd_params.onlineClusterNumber);
         break;
       case 'r': cmd_params.seed = atoi(optarg);
@@ -105,8 +105,13 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
       case 'b': cmd_params.seed = atoi(optarg);
         SESAME_INFO("configure cmd_params.initBuffer: " << cmd_params.initBuffer);
         break;
-      case 'O': cmd_params.seed = atoi(optarg);
-        SESAME_INFO("configure cmd_params.offlineTimeWindow: " << cmd_params.offlineTimeWindow);
+      case 'O': cmd_params.datasetOption = atoi(optarg);
+        if(cmd_params.datasetOption == 0) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
+        else if(cmd_params.datasetOption == 1) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/KDD99.txt";
+        else if(cmd_params.datasetOption == 2) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/PowerSupply.txt";
+        else if(cmd_params.datasetOption == 3) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond.txt";
+        else if(cmd_params.datasetOption == 4) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Zelnik.txt";
+        SESAME_INFO("configure cmd_params.datasetOption: " << cmd_params.datasetOption);
         break;
 
       case 'i':cmd_params.inputPath = optarg;
@@ -164,8 +169,8 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.beta = 0.0021;
   cmd_params.opt = 2;
 
-
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
+  cmd_params.datasetOption = 0;
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/powersupply.txt";
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
   cmd_params.algoType = SESAME::StreamKMeansType;
@@ -218,13 +223,27 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
   while (!sinkPtr->isFinished());//wait for sink to stop.
 
   //Store results.
-  // algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults());
+  algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults(),sourcePtr->getInputs());
   SESAME_INFO("Finished store results: " << sinkPtr->getResults().size());
 
-  SESAME::Evaluation::runEvaluation(cmd_params.maxLeafNodes,
-                                    cmd_params.maxInternalNodes,
-                                    cmd_params.thresholdDistance,
-                                    cmd_params.dimension,
+  switch (cmd_params.algoType) {
+    case SESAME::StreamKMeansType:
+      std::cout << "Seed: " << cmd_params.seed
+      << "   ClusterNumber: " << cmd_params.clusterNumber
+      << "   CoresetSize: " << cmd_params.coresetSize << std::endl;
+      break;
+    case SESAME::BirchType:
+      std::cout << "maxLeafNode: " << cmd_params.maxLeafNodes
+      << "   maxInnerNodes: " << cmd_params.maxInternalNodes
+      << "   thresholdDistance: " << cmd_params.thresholdDistance << std::endl;
+      break;
+    case SESAME::EDMStreamType:
+      std::cout << "Seed: " << cmd_params.seed
+                << "   ClusterNumber: " << cmd_params.clusterNumber
+                << "   CoresetSize: " << cmd_params.coresetSize << std::endl;
+    default:break;
+  }
+  SESAME::Evaluation::runEvaluation(cmd_params.dimension,
                                     sourcePtr->getInputs(),
                                     sinkPtr->getResults());
 

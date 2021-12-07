@@ -55,6 +55,8 @@ struct param_t {
   int cleanUpInterval;
   double weightMin;
   double alpha;
+
+  int datasetOption;
   std::string inputPath;
   std::string outputPath;
   SESAME::algoType algoType;

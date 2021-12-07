@@ -14,10 +14,7 @@ namespace SESAME {
 
 class Evaluation {
  public:
-  static void runEvaluation(int Seed,
-                            int ClusterNumber,
-                            int CoresetSize,
-                            int dimension,
+  static void runEvaluation(int dimension,
                             const std::vector<PointPtr> &inputs,
                             const std::vector<PointPtr> &results);
 

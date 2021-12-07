@@ -229,6 +229,7 @@ void SESAME::KMeans::produceResult(std::vector<std::vector<SESAME::PointPtr>> &g
   }
 }
 
+
 /**
  * @Description: if KMeansPP is true, run KMeans++, if false, run KMeans
  */

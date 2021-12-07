@@ -7,15 +7,12 @@
 #include <cmath>
 #include <Utils/Logger.hpp>
 
-void SESAME::Evaluation::runEvaluation(int maxL,
-                                       int maxI,
-                                       int Distance,
-                                       int dimension,
+void SESAME::Evaluation::runEvaluation(int dimension,
                                        const std::vector<PointPtr> &inputs,
                                        const std::vector<PointPtr> &center) {
   double purity =SESAME::Purity::purityCost(center, inputs, dimension);
 
   double cmm = SESAME::CMM::CMMCost(dimension,inputs,center);
 
-  std::cout << "maxLeafNodes: " << maxL << "   maxInternalNodes: " << maxI << "   thresholdDistance: "<< Distance <<"   cmm: " << round(cmm * 10000) / 10000 << "   purity: " << round(purity * 10000) / 10000 << std::endl;
+  std::cout << "   cmm: " << round(cmm * 10000) / 10000 << "   purity: " << round(purity * 10000) / 10000 << std::endl;
 }

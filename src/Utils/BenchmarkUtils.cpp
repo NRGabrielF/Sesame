@@ -230,17 +230,17 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
     case SESAME::StreamKMeansType:
       std::cout << "Seed: " << cmd_params.seed
       << "   ClusterNumber: " << cmd_params.clusterNumber
-      << "   CoresetSize: " << cmd_params.coresetSize << std::endl;
+      << "   CoresetSize: " << cmd_params.coresetSize;
       break;
     case SESAME::BirchType:
       std::cout << "maxLeafNode: " << cmd_params.maxLeafNodes
       << "   maxInnerNodes: " << cmd_params.maxInternalNodes
-      << "   thresholdDistance: " << cmd_params.thresholdDistance << std::endl;
+      << "   thresholdDistance: " << cmd_params.thresholdDistance;
       break;
     case SESAME::EDMStreamType:
       std::cout << "Seed: " << cmd_params.seed
                 << "   ClusterNumber: " << cmd_params.clusterNumber
-                << "   CoresetSize: " << cmd_params.coresetSize << std::endl;
+                << "   CoresetSize: " << cmd_params.coresetSize;
     default:break;
   }
   SESAME::Evaluation::runEvaluation(cmd_params.dimension,

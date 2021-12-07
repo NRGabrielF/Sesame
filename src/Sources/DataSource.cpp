@@ -24,6 +24,8 @@ void SESAME::DataSource::load(int point_number, int dimension, vector<string> in
 
   // The step used to generate random timestamps
   const int timeStep = 100000;
+  std::vector<double> distance;
+  SESAME::PointPtr previous;
   for (int i = 0; i < point_number; i++) {
     int timeStamp = timeStep * i + rand() % timeStep;
     PointPtr point = DataStructureFactory::createPoint(i, DEFAULT_WEIGHT, dimension, DEFAULT_COST, timeStamp);
@@ -43,8 +45,19 @@ void SESAME::DataSource::load(int point_number, int dimension, vector<string> in
       }
       feature = strtok(nullptr, sep);
     }
+    double sum = 0;
+    if(i != 0) {
+      for(int j = 0; j < dimension; j++) {
+        sum += pow(previous->getFeatureItem(j) - point->getFeatureItem(j), 2);
+      }
+      sum = sqrt(sum);
+      distance.push_back(sum / dimension);
+    }
+    previous = point->copy();
     this->input.push_back(point);
   }
+  sort(distance.begin(), distance.end());
+  SESAME_INFO("The Middle Distance is: " << distance.at(round(point_number / 2)));
 }
 
 SESAME::DataSource::DataSource() {

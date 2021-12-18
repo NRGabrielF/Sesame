@@ -44,7 +44,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
     /* getopt_long stores the option index here. */
     int option_index = 0;
 
-    c = getopt_long(argc, argv, "p:c:d:s:S:a:T:t:C:r:b:O:h:D:m:M:k",
+    c = getopt_long(argc, argv, "p:c:d:s:S:a:T:t:C:r:b:O:h:D:m:M:N:l:L:w:W:n:e:B:u:q:R:p:x:X:g:k",
                     long_options, &option_index);
 
     /* Detect the end of the options. */

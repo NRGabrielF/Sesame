@@ -10,6 +10,8 @@ SESAME::EDMStream::EDMStream(param_t &cmd_params) {
   this->EDMParam.a = cmd_params.a;
   this->EDMParam.lamda = cmd_params.lambda;
   this->EDMParam.beta = cmd_params.beta;
+  //β is a tunable parameter that controls the threshold. The larger the value of β is, the less number of active cluster-cells is. Obviously, β is less than 1 since
+  //a single cluster-cell’s density should not exceed the sum of all cluster-cells’ densities
   this->EDMParam.cacheNum = cmd_params.cacheNum;
   this->EDMParam.radius = cmd_params.radius;
   this->EDMParam.minDelta = cmd_params.delta;

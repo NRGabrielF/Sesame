@@ -10,10 +10,10 @@
 SESAME::Point::Point() {
   this->index = -1;
   this->weight = 1;
-  this->dimension = 54;
+  this->dimension = 768;
   this->cost = 0;
   this->clusteringCenter = -1;
-  this->feature = new std::vector<double>(54);
+  this->feature = new std::vector<double>(768);
   this->timestamp = 0;
 }
 

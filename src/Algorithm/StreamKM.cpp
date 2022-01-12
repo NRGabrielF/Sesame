@@ -79,7 +79,7 @@ void SESAME::StreamKM::runOfflineClustering(DataSinkPtr sinkPtr) {
 //  dumpResults(centers, groups, sinkPtr);
 //  cout << endl;
 }
-//void SESAME::StreamKM::dumpResults(vector <PointPtr> &centers,
+//void SESAME::SKM::dumpResults(vector <PointPtr> &centers,
 //                                   vector <vector<SESAME::PointPtr>> groups,
 //                                   DataSinkPtr sinkPtr) const {
 //  int cluster = 0;

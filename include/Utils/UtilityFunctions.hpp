@@ -46,9 +46,9 @@ class UtilityFunctions {
   static unsigned long genrand_int32(void);
   static std::shared_ptr<std::barrier<>> createBarrier(int count);
   static void groupByCenters(const std::vector<PointPtr> &input,
-                      const std::vector<PointPtr> &centers,
-                      std::vector<PointPtr> &output,
-                      int dimension);
+                             const std::vector<PointPtr> &centers,
+                             std::vector<PointPtr> &outputs,
+                             int dimension);
 };
 }
 #endif //SESAME_SRC_UTILS_UTILITYFUNCTIONS_HPP_

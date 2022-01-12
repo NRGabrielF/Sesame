@@ -80,10 +80,10 @@ std::shared_ptr<std::barrier<>> SESAME::UtilityFunctions::createBarrier(int coun
 }
 void SESAME::UtilityFunctions::groupByCenters(const std::vector<PointPtr> &input,
                                               const std::vector<PointPtr> &centers,
-                                              std::vector<PointPtr> &output,
+                                              std::vector<PointPtr> &outputs,
                                               int dimension) {
   for(int i = 0; i < input.size(); i++) {
-    output.push_back(input.at(i)->copy());
+    outputs.push_back(input.at(i)->copy());
     auto min = DBL_MAX;
     for(int j = 0; j < centers.size(); j++) {
       double dis = 0;
@@ -91,7 +91,7 @@ void SESAME::UtilityFunctions::groupByCenters(const std::vector<PointPtr> &input
         dis += pow((input.at(i)->getFeatureItem(k) - centers.at(j)->getFeatureItem(k)), 2);
       }
       if(min > dis) {
-        output.at(i)->setClusteringCenter(j + 1);
+        outputs.at(i)->setClusteringCenter(j + 1);
         min = dis;
       }
     }

@@ -62,6 +62,8 @@ struct param_t {
 
   int datasetOption;
   std::string inputPath;
+  std::string positivePath;
+  std::string negativePath;
   std::string outputPath;
   SESAME::algoType algoType;
 };
@@ -71,6 +73,7 @@ class BenchmarkUtils {
   static void print_help(char *string);
   static void parseArgs(int argc, char **argv, param_t &cmd_params);
   static void defaultParam(param_t &cmd_params);
+  static void load(int point_number, int dimension, vector<string> &input, vector<SESAME::PointPtr> &data);
   static void loadData(param_t &cmd_params, SESAME::DataSourcePtr dataSourcePtr);
   static void runBenchmark(param_t &cmd_params,
                            SESAME::DataSourcePtr sourcePtr,

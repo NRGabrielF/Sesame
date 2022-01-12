@@ -18,8 +18,9 @@ class Purity {
                               std::vector<std::vector<PointPtr>> &GT);
  public:
    static double purityCost(const std::vector<PointPtr> &input,
-                         const std::vector<PointPtr> &result,
-                         int dimension);
+                            const std::vector<PointPtr> &result,
+                            int predictNumber,
+                            int trueNumber);
 };
 
 }

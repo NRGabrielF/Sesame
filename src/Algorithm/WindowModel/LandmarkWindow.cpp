@@ -52,6 +52,7 @@ void SESAME::LandmarkWindow::insertPoint(PointPtr point) {
         this->windowManager.windows[nextWindow].points.push_back(
             this->windowManager.windows[curWindow].points[i]->copy());
       }
+      this->windowManager.windows[curWindow].points.clear();
       // window is now full
       this->windowManager.windows[nextWindow].cursize = this->windowManager.maxWindowSize;
       // first window is now set empty
@@ -68,6 +69,7 @@ void SESAME::LandmarkWindow::insertPoint(PointPtr point) {
         this->windowManager.windows[nextWindow].spillover.push_back(
             this->windowManager.windows[curWindow].points[i]->copy());
       }
+      this->windowManager.windows[curWindow].points.clear();
       this->windowManager.windows[0].cursize = 0;
       cursize = 0;
       curWindow++;
@@ -87,6 +89,7 @@ void SESAME::LandmarkWindow::insertPoint(PointPtr point) {
                                      this->windowManager.windows[nextWindow].spillover);
         // here we store the m constructed coreset points into the next spillover
         // current window now empty
+        this->windowManager.windows[curWindow].points.clear();
         this->windowManager.windows[curWindow].cursize = 0;
         curWindow++;
         nextWindow++;
@@ -102,6 +105,7 @@ void SESAME::LandmarkWindow::insertPoint(PointPtr point) {
                                    this->windowManager.windows[curWindow].points,
                                    this->windowManager.windows[curWindow].spillover,
                                    this->windowManager.windows[nextWindow].points);
+      this->windowManager.windows[curWindow].points.clear();
       this->windowManager.windows[curWindow].cursize = 0;
       this->windowManager.windows[nextWindow].cursize = this->windowManager.maxWindowSize;
     }
@@ -130,11 +134,12 @@ std::vector<SESAME::PointPtr> SESAME::LandmarkWindow::getCoresetFromManager(std:
       == this->windowManager.maxWindowSize) {
     coreset = this->windowManager.windows[this->windowManager.numberOfWindow - 1].points;
 
-  } else if (this->windowManager.windows[this->windowManager.numberOfWindow - 1].cursize == 0) {
+  }
+  else if (this->windowManager.windows[this->windowManager.numberOfWindow - 1].cursize == 0) {
     coreset = this->windowManager.windows[this->windowManager.numberOfWindow - 2].points;
-  } else {
+  }
+  else {
     //find the first nonempty bucket
-
     for (i = 0; i < this->windowManager.numberOfWindow; i++) {
       if (this->windowManager.windows[i].cursize != 0) {
         coreset = this->windowManager.windows[i].points;

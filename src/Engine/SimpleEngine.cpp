@@ -103,5 +103,5 @@ int SESAME::SimpleEngine::assignID() {
   return threadID++;
 }
 void SESAME::SimpleEngine::printTime() {
-  SESAME_INFO("Engine takes " << overallMeter.MeterUSEC() << " useconds to finish.");
+  std::cout<< "Engine takes " << overallMeter.MeterUSEC() << " useconds to finish."<< std::endl;
 }

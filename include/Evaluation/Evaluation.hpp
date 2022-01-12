@@ -15,9 +15,10 @@ namespace SESAME {
 class Evaluation {
  public:
   static void runEvaluation(int dimension,
+                            int clusterNumber,
+                            const std::vector<PointPtr> &result,
                             const std::vector<PointPtr> &inputs,
                             const std::vector<PointPtr> &results);
-
 
 };
 

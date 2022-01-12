@@ -20,8 +20,9 @@ int main(int argc, char **argv) {
 
   //Parse parameters.
   param_t cmd_params;
- //BenchmarkUtils::defaultParam(cmd_params);
   BenchmarkUtils::parseArgs(argc, argv, cmd_params);
+
+  BenchmarkUtils::defaultParam(cmd_params);
   // cmd_params.pointNumber = 15120;
   //cmd_params.coresetSize = cmd_params.clusterNumber * 200;
 //  cmd_params.dimension = 54;

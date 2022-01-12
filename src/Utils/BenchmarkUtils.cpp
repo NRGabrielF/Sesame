@@ -221,7 +221,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
  * @Return:
  */
 void BenchmarkUtils::defaultParam(param_t &cmd_params) {
-  cmd_params.pointNumber = 15120; // number of the data points in the dataset, use the whole dataset to run benchmark
+  cmd_params.pointNumber = 100; // number of the data points in the dataset, use the whole dataset to run benchmark
   cmd_params.clusterNumber = 10;
   cmd_params.dimension = 768;
 
@@ -277,7 +277,7 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
 
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::EDMStreamType;
+  cmd_params.algoType = SESAME::BirchType;
 }
 
 /* command line handling functions */
@@ -353,169 +353,169 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
   //Store results.
   algoPtr->store(cmd_params.outputPath, cmd_params.dimension, sinkPtr->getResults(),sourcePtr->getInputs());
   SESAME_INFO("Finished store results: " << sinkPtr->getResults().size());
-//
-//  switch (cmd_params.algoType) {
-//    case SESAME::StreamKMeansType:
-//      std::cout << "Seed: " << cmd_params.seed
-//      << "   ClusterNumber: " << cmd_params.clusterNumber
-//      << "   CoresetSize: " << cmd_params.coresetSize;
-//      break;
-//    case SESAME::BirchType:
-//      std::cout << "maxLeafNode: " << cmd_params.maxLeafNodes
-//      << "   maxInnerNodes: " << cmd_params.maxInternalNodes
-//      << "   thresholdDistance: " << cmd_params.thresholdDistance;
-//      break;
-//    case SESAME::EDMStreamType:
-//      std::cout  << "CacheNum: " << cmd_params.cacheNum
-//      << "   Radius: " << cmd_params.radius
-//      << "   MinDelta: " << cmd_params.delta;
-//    default:break;
+
+  switch (cmd_params.algoType) {
+    case SESAME::StreamKMeansType:
+      std::cout << "Seed: " << cmd_params.seed
+      << "   ClusterNumber: " << cmd_params.clusterNumber
+      << "   CoresetSize: " << cmd_params.coresetSize;
+      break;
+    case SESAME::BirchType:
+      std::cout << "maxLeafNode: " << cmd_params.maxLeafNodes
+      << "   maxInnerNodes: " << cmd_params.maxInternalNodes
+      << "   thresholdDistance: " << cmd_params.thresholdDistance;
+      break;
+    case SESAME::EDMStreamType:
+      std::cout  << "CacheNum: " << cmd_params.cacheNum
+      << "   Radius: " << cmd_params.radius
+      << "   MinDelta: " << cmd_params.delta;
+    default:break;
+  }
+  std::vector<SESAME::PointPtr> outputs;
+  std::vector<SESAME::PointPtr> centers;
+  // test
+//  std::vector<std::string> cen;
+//  ifstream cent;
+//  cent.open(std::filesystem::current_path().generic_string() + "/datasets/1.txt");
+//  for (int i = 0; i < 10; i++) {
+//    cen.emplace_back();
+//    getline(cent, cen[i]);
 //  }
-//  std::vector<SESAME::PointPtr> outputs;
-//  std::vector<SESAME::PointPtr> centers;
-//  // test
-////  std::vector<std::string> cen;
-////  ifstream cent;
-////  cent.open(std::filesystem::current_path().generic_string() + "/datasets/1.txt");
-////  for (int i = 0; i < 10; i++) {
-////    cen.emplace_back();
-////    getline(cent, cen[i]);
-////  }
-////  cent.close();
-////  load(10, cmd_params.dimension, cen, centers);
-//  centers = sinkPtr->getResults();
-//
-////  std::vector<SESAME::PointPtr> centers = sinkPtr->getResults();
-//  std::vector<SESAME::PointPtr> inputs = sourcePtr->getInputs();
-//
-//
-//  SESAME::UtilityFunctions::groupByCenters(inputs, centers, outputs, cmd_params.dimension);
-//
-//  // load positive reference
-//  std::vector<std::string> reference_p;
-//  ifstream p_reference;
-//  p_reference.open(cmd_params.positivePath);
-//  for (int i = 0; i < 21; i++) {
-//    reference_p.emplace_back();
-//    getline(p_reference, reference_p[i]);
-//  }
-//  p_reference.close();
-//
-//  // load negative reference
-//  std::vector<std::string> reference_n;
-//  ifstream n_reference;
-//  n_reference.open(cmd_params.negativePath);
-//  for (int i = 0; i < 21; i++) {
-//    reference_n.emplace_back();
-//    getline(n_reference, reference_n[i]);
-//  }
-//  n_reference.close();
-//
-//  std::vector<SESAME::PointPtr> positive;
-//  std::vector<SESAME::PointPtr> negative;
-//  load(21, cmd_params.dimension, reference_p, positive);
-//  load(21, cmd_params.dimension, reference_n, negative);
-//
-//   // Cosine Similarity (classification mapping)
-//  for(int i = 0; i < centers.size(); i++) {
+//  cent.close();
+//  load(10, cmd_params.dimension, cen, centers);
+  centers = sinkPtr->getResults();
+
+//  std::vector<SESAME::PointPtr> centers = sinkPtr->getResults();
+  std::vector<SESAME::PointPtr> inputs = sourcePtr->getInputs();
+
+
+  SESAME::UtilityFunctions::groupByCenters(inputs, centers, outputs, cmd_params.dimension);
+
+  // load positive reference
+  std::vector<std::string> reference_p;
+  ifstream p_reference;
+  p_reference.open(cmd_params.positivePath);
+  for (int i = 0; i < 21; i++) {
+    reference_p.emplace_back();
+    getline(p_reference, reference_p[i]);
+  }
+  p_reference.close();
+
+  // load negative reference
+  std::vector<std::string> reference_n;
+  ifstream n_reference;
+  n_reference.open(cmd_params.negativePath);
+  for (int i = 0; i < 21; i++) {
+    reference_n.emplace_back();
+    getline(n_reference, reference_n[i]);
+  }
+  n_reference.close();
+
+  std::vector<SESAME::PointPtr> positive;
+  std::vector<SESAME::PointPtr> negative;
+  load(21, cmd_params.dimension, reference_p, positive);
+  load(21, cmd_params.dimension, reference_n, negative);
+
+   // Cosine Similarity (classification mapping)
+  for(int i = 0; i < centers.size(); i++) {
+    double p_distance = 0;
+    double n_distance = 0;
+    double x1 = 0;
+    double x2 = 0;
+    double x3 = 0;
+    for(int j = 0; j < positive.size(); j++) {
+      for(int k = 0; k < positive[j]->getDimension(); k++) {
+        x1 += abs(positive[j]->getFeatureItem(k) * centers[i]->getFeatureItem(k));
+        x2 += pow(positive[j]->getFeatureItem(k), 2);
+        x3 += pow(centers[i]->getFeatureItem(k), 2);
+      }
+      p_distance += x1 / sqrt(x2 * x3);
+    }
+    for(int j = 0; j < negative.size(); j++) {
+      for(int k = 0; k < negative[j]->getDimension(); k++) {
+        x1 += abs(negative[j]->getFeatureItem(k) * inputs[i]->getFeatureItem(k));
+        x2 += pow(negative[j]->getFeatureItem(k), 2);
+        x3 += pow(inputs[i]->getFeatureItem(k), 2);
+      }
+      n_distance += x1 / sqrt(x2 * x3);
+    }
+    p_distance = abs(p_distance)  / positive.size();
+    n_distance = abs(n_distance) / negative.size();
+    if(p_distance > n_distance) centers[i]->setClusteringCenter(1); // positive-1, negative-0
+    else centers[i]->setClusteringCenter(0);
+  }
+
+//    // Eulicidean Distance (classification mapping)
+//    for(int i = 0; i < centers.size(); i++) {
 //    double p_distance = 0;
 //    double n_distance = 0;
-//    double x1 = 0;
-//    double x2 = 0;
-//    double x3 = 0;
+//    double x1;
+//    double x2;
 //    for(int j = 0; j < positive.size(); j++) {
+//      x1 = 0;
 //      for(int k = 0; k < positive[j]->getDimension(); k++) {
-//        x1 += abs(positive[j]->getFeatureItem(k) * centers[i]->getFeatureItem(k));
-//        x2 += pow(positive[j]->getFeatureItem(k), 2);
-//        x3 += pow(centers[i]->getFeatureItem(k), 2);
+//        x1 += pow(positive[j]->getFeatureItem(k) - centers[i]->getFeatureItem(k),2);
 //      }
-//      p_distance += x1 / sqrt(x2 * x3);
+//      p_distance += sqrt(x1);
+//
 //    }
 //    for(int j = 0; j < negative.size(); j++) {
+//      x2 = 0;
 //      for(int k = 0; k < negative[j]->getDimension(); k++) {
-//        x1 += abs(negative[j]->getFeatureItem(k) * inputs[i]->getFeatureItem(k));
-//        x2 += pow(negative[j]->getFeatureItem(k), 2);
-//        x3 += pow(inputs[i]->getFeatureItem(k), 2);
+//        x2 += pow(negative[j]->getFeatureItem(k) - centers[i]->getFeatureItem(k),2);
 //      }
-//      n_distance += x1 / sqrt(x2 * x3);
+//      n_distance +=  sqrt(x2);
 //    }
-//    p_distance = abs(p_distance)  / positive.size();
-//    n_distance = abs(n_distance) / negative.size();
-//    if(p_distance > n_distance) centers[i]->setClusteringCenter(1); // positive-1, negative-0
+//    p_distance = p_distance * 0.99/ positive.size();
+//    n_distance = n_distance / negative.size();
+//    if(p_distance > n_distance) centers[i]->setClusteringCenter(1);
 //    else centers[i]->setClusteringCenter(0);
 //  }
-//
-////    // Eulicidean Distance (classification mapping)
-////    for(int i = 0; i < centers.size(); i++) {
-////    double p_distance = 0;
-////    double n_distance = 0;
-////    double x1;
-////    double x2;
-////    for(int j = 0; j < positive.size(); j++) {
-////      x1 = 0;
-////      for(int k = 0; k < positive[j]->getDimension(); k++) {
-////        x1 += pow(positive[j]->getFeatureItem(k) - centers[i]->getFeatureItem(k),2);
-////      }
-////      p_distance += sqrt(x1);
-////
-////    }
-////    for(int j = 0; j < negative.size(); j++) {
-////      x2 = 0;
-////      for(int k = 0; k < negative[j]->getDimension(); k++) {
-////        x2 += pow(negative[j]->getFeatureItem(k) - centers[i]->getFeatureItem(k),2);
-////      }
-////      n_distance +=  sqrt(x2);
-////    }
-////    p_distance = p_distance * 0.99/ positive.size();
-////    n_distance = n_distance / negative.size();
-////    if(p_distance > n_distance) centers[i]->setClusteringCenter(1);
-////    else centers[i]->setClusteringCenter(0);
-////  }
-//
-//
-//  for(int i = 0; i < outputs.size(); i++) {
-//    if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 1)outputs[i]->setClusteringCenter(1);
-//    else if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 0)outputs[i]->setClusteringCenter(0);
-//    else std::cout << "Error! result not only 1 or 0!" << std::endl;
-//  }
-//
-//  // sentiment140: 0(negative), 2(neutral), 4(positive)
-//  // yelp:2(positive), 1(negative)
-//  for(int i = 0; i < cmd_params.pointNumber; i++) {
-//    if(inputs[i]->getClusteringCenter() == 1)inputs[i]->setClusteringCenter(0);
-//    else if(inputs[i]->getClusteringCenter() == 2)inputs[i]->setClusteringCenter(1);
-//    else std::cout << "Error! sentiment140 not only 0, 2 or 4!" << std::endl;
-//  }
-//
-//  // Evaluation
-//  SESAME::Evaluation::runEvaluation(cmd_params.dimension,
-//                                    cmd_params.clusterNumber,
-//                                    outputs,
-//                                    centers,
-//                                    inputs);
-//  // get TP. FN, FP, TN
-//  int TP = 0, FN = 0, FP = 0, TN = 0; // first gt, second prediction
-//  std::vector<int> GT_id, GN_id, PT_id, PN_id;
-//
-//  for(int i = 0; i < cmd_params.pointNumber; i++) {
-//    if(outputs[i]->getClusteringCenter() == 1 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 1) TP++;
-//    else if(outputs[i]->getClusteringCenter() == 1 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 0) FP++;
-//    else if(outputs[i]->getClusteringCenter() == 0 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 1) TN++;
-//    else if(outputs[i]->getClusteringCenter() == 0 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 0) FN++;
-//    else {
-//      std::cout<<"Error!!!";
-//    }
-//  }
-//  // BA
-//  double sensitivity = (double)TP / (double)(TP + FN);
-//  double specificity = (double)TN / (double)(FP + TN);
-//  double balance_accuracy = (sensitivity + specificity) / (double) 2;
-//  std::cout <<"  Balance Accuracy:" << balance_accuracy;
-//  // F-score
-//  double precision = (double)TP / (double)(TP + FP);
-//  double recall = sensitivity;
-//  double fscore =(double) 2 * precision * recall / (precision + recall);
-//  std::cout <<"  F-Score:" << fscore << std::endl;
+
+
+  for(int i = 0; i < outputs.size(); i++) {
+    if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 1)outputs[i]->setClusteringCenter(1);
+    else if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 0)outputs[i]->setClusteringCenter(0);
+    else std::cout << "Error! result not only 1 or 0!" << std::endl;
+  }
+
+  // sentiment140: 0(negative), 2(neutral), 4(positive)
+  // yelp:2(positive), 1(negative)
+  for(int i = 0; i < cmd_params.pointNumber; i++) {
+    if(inputs[i]->getClusteringCenter() == 1)inputs[i]->setClusteringCenter(0);
+    else if(inputs[i]->getClusteringCenter() == 2)inputs[i]->setClusteringCenter(1);
+    else std::cout << "Error! sentiment140 not only 0, 2 or 4!" << std::endl;
+  }
+
+  // Evaluation
+  SESAME::Evaluation::runEvaluation(cmd_params.dimension,
+                                    cmd_params.clusterNumber,
+                                    outputs,
+                                    centers,
+                                    inputs);
+  // get TP. FN, FP, TN
+  int TP = 0, FN = 0, FP = 0, TN = 0; // first gt, second prediction
+  std::vector<int> GT_id, GN_id, PT_id, PN_id;
+
+  for(int i = 0; i < cmd_params.pointNumber; i++) {
+    if(outputs[i]->getClusteringCenter() == 1 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 1) TP++;
+    else if(outputs[i]->getClusteringCenter() == 1 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 0) FP++;
+    else if(outputs[i]->getClusteringCenter() == 0 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 1) TN++;
+    else if(outputs[i]->getClusteringCenter() == 0 && inputs[outputs[i]->getIndex()]->getClusteringCenter() == 0) FN++;
+    else {
+      std::cout<<"Error!!!";
+    }
+  }
+  // BA
+  double sensitivity = (double)TP / (double)(TP + FN);
+  double specificity = (double)TN / (double)(FP + TN);
+  double balance_accuracy = (sensitivity + specificity) / (double) 2;
+  std::cout <<"  Balance Accuracy:" << balance_accuracy;
+  // F-score
+  double precision = (double)TP / (double)(TP + FP);
+  double recall = sensitivity;
+  double fscore =(double) 2 * precision * recall / (precision + recall);
+  std::cout <<"  F-Score:" << fscore << std::endl;
 
 
   engine.stop();

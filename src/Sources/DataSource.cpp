@@ -25,9 +25,11 @@ void SESAME::DataSource::load(int point_number, int dimension, vector<string> in
   // The step used to generate random timestamps
   const int timeStep = 100000;
   std::vector<double> distance;
+  int a = 0;
   SESAME::PointPtr previous;
   for (int i = 0; i < point_number; i++) {
     int timeStamp = timeStep * i + rand() % timeStep;
+    a = timeStamp;
     PointPtr point = DataStructureFactory::createPoint(i, DEFAULT_WEIGHT, dimension, DEFAULT_COST, timeStamp);
     char *charData = new char[INT32_MAX];
     strcpy(charData, input[i].c_str());

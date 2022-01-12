@@ -15,7 +15,7 @@ void SESAME::Birch::Initilize() {
 
 
 void SESAME::Birch::runOnlineClustering(const SESAME::PointPtr input) {
-    // insert the root
+  // insert the root
   forwardInsert(input);
 }
 

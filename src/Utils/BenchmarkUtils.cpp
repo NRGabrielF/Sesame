@@ -221,7 +221,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
  * @Return:
  */
 void BenchmarkUtils::defaultParam(param_t &cmd_params) {
-  cmd_params.pointNumber = 100; // number of the data points in the dataset, use the whole dataset to run benchmark
+  cmd_params.pointNumber = 2000; // number of the data points in the dataset, use the whole dataset to run benchmark
   cmd_params.clusterNumber = 10;
   cmd_params.dimension = 768;
 
@@ -234,31 +234,31 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.maxInternalNodes = 20;
   cmd_params.thresholdDistance = 0.1;
 
-  //EDMStream
-  cmd_params.a = 0.998;
-  cmd_params.cacheNum = 1000;
-  cmd_params.radius = 250;
-  cmd_params.lambda = 1;
-  cmd_params.delta = 1500;
-  cmd_params.beta = 0.0021;
-  cmd_params.opt = 2;
-
-  //DenStream
-  cmd_params.minPoints = 10; //
-  cmd_params.epsilon = 50;
-  cmd_params.base = 2;
-  cmd_params.lambda = 1.8; // 1.8
-  cmd_params.mu = 7;
-  cmd_params.beta = 5; // 5
-  cmd_params.initBuffer = 100;
-
-//  // DB-Stream
+//  //EDMStream
+//  cmd_params.a = 0.998;
+//  cmd_params.cacheNum = 1000;
 //  cmd_params.radius = 250;
-//  cmd_params.lambda = ;
-//  cmd_params.cleanUpInterval;
-//  cmd_params.weightMin;
-//  cmd_params.alpha;
-//  cmd_params.base;
+//  cmd_params.lambda = 1;
+//  cmd_params.delta = 1500;
+//  cmd_params.beta = 0.0021;
+//  cmd_params.opt = 2;
+
+//  //DenStream
+//  cmd_params.minPoints = 10; //
+//  cmd_params.epsilon = 50;
+//  cmd_params.base = 2;
+//  cmd_params.lambda = 1.8; // 1.8
+//  cmd_params.mu = 7;
+//  cmd_params.beta = 5; // 5
+//  cmd_params.initBuffer = 100;
+
+  // DB-Stream
+  cmd_params.radius = 1;
+  cmd_params.lambda = 0.25;
+  cmd_params.cleanUpInterval = 6;
+  cmd_params.weightMin = 3;
+  cmd_params.alpha = 0.2;
+  cmd_params.base = 2;
 
   //Clustream
   cmd_params.initBuffer = 500;
@@ -277,7 +277,7 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
 
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::BirchType;
+  cmd_params.algoType = SESAME::DBStreamType;
 }
 
 /* command line handling functions */

@@ -240,7 +240,7 @@ void SESAME::CluStream::runOnlineClustering(SESAME::PointPtr input) {
 
     Initilize();
 
-    this->initialInputs.push_back(input);
+    this->initialInputs.push_back(input->copy());
     if (this->initialInputs.size() == this->CluStreamParam.initBuffer) {//TODO: fix this hard code @Zhenyu
       vector <PointPtr> initData;//initialData
       initOffline(this->initialInputs,initData);
@@ -267,7 +267,7 @@ void SESAME::CluStream::runOnlineClustering(SESAME::PointPtr input) {
     timerMeter.snapshotEndMeasure();
 
    // timerMeter.MeterSnapshotAccUSEC();
-    incrementalCluster(input);
+    incrementalCluster(input->copy());
 
   }
   timerMeter.onlineEndMeasure();

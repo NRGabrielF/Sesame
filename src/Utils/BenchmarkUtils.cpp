@@ -222,26 +222,26 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
  */
 void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.pointNumber = 2000; // number of the data points in the dataset, use the whole dataset to run benchmark
-  cmd_params.clusterNumber = 10;
-  cmd_params.dimension = 768;
+  cmd_params.clusterNumber = 3;
+  cmd_params.dimension = 32;
 
   // SKM
   cmd_params.seed = 30;
-  cmd_params.coresetSize = 2000;
+  cmd_params.coresetSize = 200;
 
   // BIRCH
-  cmd_params.maxLeafNodes = 50;
-  cmd_params.maxInternalNodes = 20;
-  cmd_params.thresholdDistance = 0.1;
+  cmd_params.maxLeafNodes = 80;
+  cmd_params.maxInternalNodes = 40;
+  cmd_params.thresholdDistance = 3;
 
-//  //EDMStream
-//  cmd_params.a = 0.998;
-//  cmd_params.cacheNum = 1000;
-//  cmd_params.radius = 250;
-//  cmd_params.lambda = 1;
-//  cmd_params.delta = 1500;
-//  cmd_params.beta = 0.0021;
-//  cmd_params.opt = 2;
+  //EDMStream
+  cmd_params.a = 0.998;
+  cmd_params.cacheNum = 500;
+  cmd_params.radius = 1.5;
+  cmd_params.lambda = 1;
+  cmd_params.delta = 100;
+  cmd_params.beta = 0.0021;
+  cmd_params.opt = 2;
 
 //  //DenStream
 //  cmd_params.minPoints = 10; //
@@ -252,32 +252,32 @@ void BenchmarkUtils::defaultParam(param_t &cmd_params) {
 //  cmd_params.beta = 5; // 5
 //  cmd_params.initBuffer = 100;
 
-  // DB-Stream
-  cmd_params.radius = 1;
-  cmd_params.lambda = 0.25;
-  cmd_params.cleanUpInterval = 6;
-  cmd_params.weightMin = 3;
-  cmd_params.alpha = 0.2;
-  cmd_params.base = 2;
+//  // DB-Stream
+//  cmd_params.radius = 1;
+//  cmd_params.lambda = 0.25;
+//  cmd_params.cleanUpInterval = 6;
+//  cmd_params.weightMin = 3;
+//  cmd_params.alpha = 0.2;
+//  cmd_params.base = 2;
 
   //Clustream
   cmd_params.initBuffer = 500;
-  cmd_params.lastArrivingNum = 60;
-  cmd_params.timeWindow = 6;
-  cmd_params.timeInterval = 4;
-  cmd_params.onlineClusterNumber = 15;
-  cmd_params.radiusFactor = 70;
-  cmd_params.offlineTimeWindow = 2;
+  cmd_params.lastArrivingNum = 4;
+  cmd_params.timeWindow = 8;
+  cmd_params.timeInterval = 2;
+  cmd_params.onlineClusterNumber = 5;
+  cmd_params.radiusFactor = 20;
+  cmd_params.offlineTimeWindow = 0;
 
 
   cmd_params.datasetOption = 0;
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Sentiment140.txt";
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/wv.txt";
   cmd_params.positivePath = std::filesystem::current_path().generic_string() + "/datasets/Positive.txt";
   cmd_params.negativePath = std::filesystem::current_path().generic_string() + "/datasets/Negative.txt";
 
   SESAME_INFO("Default Input Data Directory: " + cmd_params.inputPath);
   cmd_params.outputPath = "results.txt";
-  cmd_params.algoType = SESAME::DBStreamType;
+  cmd_params.algoType = SESAME::EDMStreamType;
 }
 
 /* command line handling functions */
@@ -358,17 +358,17 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
     case SESAME::StreamKMeansType:
       std::cout << "Seed: " << cmd_params.seed
       << "   ClusterNumber: " << cmd_params.clusterNumber
-      << "   CoresetSize: " << cmd_params.coresetSize;
+      << "   CoresetSize: " << cmd_params.coresetSize << std::endl;
       break;
     case SESAME::BirchType:
       std::cout << "maxLeafNode: " << cmd_params.maxLeafNodes
       << "   maxInnerNodes: " << cmd_params.maxInternalNodes
-      << "   thresholdDistance: " << cmd_params.thresholdDistance;
+      << "   thresholdDistance: " << cmd_params.thresholdDistance << std::endl;
       break;
     case SESAME::EDMStreamType:
       std::cout  << "CacheNum: " << cmd_params.cacheNum
       << "   Radius: " << cmd_params.radius
-      << "   MinDelta: " << cmd_params.delta;
+      << "   MinDelta: " << cmd_params.delta << std::endl;
     default:break;
   }
   std::vector<SESAME::PointPtr> outputs;
@@ -388,8 +388,8 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
 //  std::vector<SESAME::PointPtr> centers = sinkPtr->getResults();
   std::vector<SESAME::PointPtr> inputs = sourcePtr->getInputs();
 
-
   SESAME::UtilityFunctions::groupByCenters(inputs, centers, outputs, cmd_params.dimension);
+
 
   // load positive reference
   std::vector<std::string> reference_p;
@@ -439,7 +439,7 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
       }
       n_distance += x1 / sqrt(x2 * x3);
     }
-    p_distance = abs(p_distance)  / positive.size();
+    p_distance = abs(p_distance) * 0.65  / positive.size();
     n_distance = abs(n_distance) / negative.size();
     if(p_distance > n_distance) centers[i]->setClusteringCenter(1); // positive-1, negative-0
     else centers[i]->setClusteringCenter(0);
@@ -472,19 +472,43 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
 //    else centers[i]->setClusteringCenter(0);
 //  }
 
-
-  for(int i = 0; i < outputs.size(); i++) {
-    if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 1)outputs[i]->setClusteringCenter(1);
-    else if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 0)outputs[i]->setClusteringCenter(0);
-    else std::cout << "Error! result not only 1 or 0!" << std::endl;
-  }
-
   // sentiment140: 0(negative), 2(neutral), 4(positive)
   // yelp:2(positive), 1(negative)
+
+  std::vector<std::vector<int>> groups;
+  std::vector<int> line;
+  for(int i = 0; i < centers.size(); i++) {
+    for(int k = 0; k < cmd_params.pointNumber; k++) {
+      if(outputs[k]->getClusteringCenter() == i+1) {
+        line.push_back(outputs[k]->getIndex());
+      }
+    }
+    groups.push_back(line);
+    line.clear();
+  }
+  for(int i = 0; i < centers.size(); i++) {
+    int p = 0;
+    int n = 0;
+    for(int j = 0; j < groups[i].size(); j++) {
+      if(inputs[groups[i][j]]->getClusteringCenter() == 1) n++;
+      else p++;
+    }
+    std::cout << "Cluster "<< i << "  Positive: " << p <<", Negative:" << n << std::endl;
+  }
+
+  // group input to 1,0
   for(int i = 0; i < cmd_params.pointNumber; i++) {
     if(inputs[i]->getClusteringCenter() == 1)inputs[i]->setClusteringCenter(0);
     else if(inputs[i]->getClusteringCenter() == 2)inputs[i]->setClusteringCenter(1);
     else std::cout << "Error! sentiment140 not only 0, 2 or 4!" << std::endl;
+  }
+
+
+  // group output to 1,0
+  for(int i = 0; i < outputs.size(); i++) {
+    if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 1)outputs[i]->setClusteringCenter(1);
+    else if(centers[outputs[i]->getClusteringCenter() - 1]->getClusteringCenter() == 0)outputs[i]->setClusteringCenter(0);
+    else std::cout << "Error! result not only 1 or 0!" << std::endl;
   }
 
   // Evaluation
@@ -516,8 +540,6 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
   double recall = sensitivity;
   double fscore =(double) 2 * precision * recall / (precision + recall);
   std::cout <<"  F-Score:" << fscore << std::endl;
-
-
   engine.stop();
 }
 

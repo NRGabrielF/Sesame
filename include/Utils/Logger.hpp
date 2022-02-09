@@ -233,9 +233,9 @@ static log4cxx::LoggerPtr SESAMELogger(log4cxx::Logger::getLogger("SESAME"));
     } while (0)
 
   static void setupLogging(std::string logFileName, DebugLevel level) {
-      std::cout << "LogFileName: " << logFileName << ", and DebugLevel: " << level << std::endl;
+      //std::cout << "LogFileName: " << logFileName << ", and DebugLevel: " << level << std::endl;
       #ifdef USELOG4CXX
-      std::cout << "Logger: SETUP_LOGGING" << std::endl;
+      //std::cout << "Logger: SETUP_LOGGING" << std::endl;
       // create PatternLayout
       log4cxx::LayoutPtr
           layoutPtr(new log4cxx::PatternLayout("%d{MMM dd yyyy HH:mm:ss} %c: %l %X{threadName} [%-5t] [%p] : %m%n"));

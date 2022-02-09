@@ -188,11 +188,31 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
               SESAME_INFO("configure cmd_params.gridWidth: " << cmd_params.gridWidth);
               break;
               case 'O': cmd_params.datasetOption = atoi(optarg);
-              if(cmd_params.datasetOption == 0) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
-              else if(cmd_params.datasetOption == 1) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/KDD99.txt";
-              else if(cmd_params.datasetOption == 2) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/sensor.txt";
-              else if(cmd_params.datasetOption == 3) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond.txt";
-              else if(cmd_params.datasetOption == 4) cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Zelnik.txt";
+              if(cmd_params.datasetOption == 0)
+              {
+                cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/CoverType.txt";
+                cmd_params.GTClusterNumber=7;
+              }
+              else if(cmd_params.datasetOption == 1)
+              {
+                cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/KDD99.txt";
+                cmd_params.GTClusterNumber=23;
+              }
+              else if(cmd_params.datasetOption == 2)
+              {
+                cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/sensor.txt";
+                cmd_params.GTClusterNumber=54;
+              }
+              else if(cmd_params.datasetOption == 3)
+              {
+                cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond.txt";
+                cmd_params.GTClusterNumber=9;
+              }
+              else if(cmd_params.datasetOption == 4)
+              {
+                cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Zelnik.txt";
+                cmd_params.GTClusterNumber=5;
+              }
               SESAME_INFO("configure cmd_params.datasetOption: " << cmd_params.inputPath);//cmd_params.inputPath cmd_params.datasetOption
               break;
 

@@ -45,7 +45,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
     /* getopt_long stores the option index here. */
     int option_index = 0;
 
-    c = getopt_long(argc, argv, "A:a:B:b:C:c:D:d:E:e:g:i:j:k:L:l:M:m:N:n:O:o:P:p:Q:q:R:r:s:S:T:t:u:w:W:x:X:h",
+    c = getopt_long(argc, argv, "A:a:B:b:C:c:D:d:E:e:f:F:g:i:j:k:L:l:M:m:N:n:O:o:P:p:Q:q:R:r:s:S:T:t:u:w:W:x:X:h",
 
                     long_options, &option_index);
 
@@ -71,6 +71,12 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
             SESAME_INFO("configure cmd_params.pointNumber: " << cmd_params.pointNumber);
             break;
             case 'c':cmd_params.clusterNumber = atoi(optarg);
+            SESAME_INFO("configure cmd_params.clusterNumber: " << cmd_params.clusterNumber);
+            break;
+            case 'f':cmd_params.GTClusterNumber = atoi(optarg);
+            SESAME_INFO("configure cmd_params.clusterNumber: " << cmd_params.clusterNumber);
+            break;
+            case 'F':cmd_params.timeDecay = atoi(optarg);
             SESAME_INFO("configure cmd_params.clusterNumber: " << cmd_params.clusterNumber);
             break;
             case 'd':cmd_params.dimension = atoi(optarg);
@@ -216,6 +222,7 @@ void BenchmarkUtils::parseArgs(int argc, char **argv, param_t &cmd_params) {
 void BenchmarkUtils::defaultParam(param_t &cmd_params) {
   cmd_params.pointNumber = 542; // number of the data points in the dataset, use the whole dataset to run benchmark
   cmd_params.seed = 1;
+  cmd_params.timeDecay = false; // 5
   cmd_params.clusterNumber = 2;
   cmd_params.dimension = 54;
   cmd_params.coresetSize = 100;

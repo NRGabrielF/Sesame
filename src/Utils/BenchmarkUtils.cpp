@@ -292,8 +292,7 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
                                   SESAME::DataSourcePtr sourcePtr,
                                   SESAME::DataSinkPtr sinkPtr,
                                   SESAME::AlgorithmPtr algoPtr) {
-  std::cout<<"data number: "<<cmd_params.pointNumber<<std::endl;
-
+ /* std::cout<<"data number: "<<cmd_params.pointNumber<<std::endl;
   switch (cmd_params.algoType) {
     case SESAME::CluStreamType:
       std::cout << "Algorithm: CluStream "
@@ -353,7 +352,7 @@ void BenchmarkUtils::runBenchmark(param_t &cmd_params,
       << "   MinDelta: " << cmd_params.delta
       <<"\n";
   default:break;
-  }
+  }*/
   SESAME::SimpleEngine engine(sourcePtr, sinkPtr, algoPtr);//TODO: create multithread engine in future.
 
   engine.run();

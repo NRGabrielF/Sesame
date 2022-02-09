@@ -325,7 +325,7 @@ void SESAME::CluStream::runOfflineClustering(SESAME::DataSinkPtr sinkPtr) {
   for(int i = 0; i < centers.size(); i++) {
     sinkPtr->put(centers[i]->copy());
   }
-  timerMeter.printTime(true, true,true,false);//
+ // timerMeter.printTime(true, true,true,false);//
 
 }
 

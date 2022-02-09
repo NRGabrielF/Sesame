@@ -21,16 +21,16 @@ TEST(SystemTest, CluStreamTest) {
   cmd_params.pointNumber = 3000;
   cmd_params.dimension = 2;
   cmd_params.clusterNumber = 9;
-  cmd_params.lastArrivingNum = 10;
-  cmd_params.timeWindow = 10;
+  cmd_params.lastArrivingNum = 12;
+  cmd_params.timeWindow = 200;
   cmd_params.timeInterval = 8;
-  cmd_params.onlineClusterNumber =20;
-  cmd_params.radiusFactor =2;
-  cmd_params.initBuffer = 20;
+  cmd_params.onlineClusterNumber =60;
+  cmd_params.radiusFactor =0.5;
+  cmd_params.initBuffer = 200;
   cmd_params.offlineTimeWindow = 0;
   cmd_params.GTClusterNumber = 9;
-  cmd_params.timeDecay = true;
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond/D9.txt";
+  //cmd_params.timeDecay = true;
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond.txt";
   cmd_params.outputPath = "results.txt";
   cmd_params.algoType = SESAME::CluStreamType;
 

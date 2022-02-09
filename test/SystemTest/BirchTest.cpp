@@ -28,7 +28,7 @@ TEST(SystemTest, BirchTest) {
   cmd_params.GTClusterNumber = 9;
   cmd_params.timeDecay = true;
 
-  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond/D9.txt";
+  cmd_params.inputPath = std::filesystem::current_path().generic_string() + "/datasets/Diamond.txt";
   cmd_params.outputPath = "results.txt";
   cmd_params.algoType = SESAME::BirchType;
 

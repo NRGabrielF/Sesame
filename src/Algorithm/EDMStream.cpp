@@ -127,7 +127,7 @@ void SESAME::EDMStream::runOnlineClustering(SESAME::PointPtr input) {
   }
 }
 void SESAME::EDMStream::runOfflineClustering(SESAME::DataSinkPtr sinkPtr) {
-  timerMeter.printTime(true,false,true,false);
+ // timerMeter.printTime(true,false,true,false);
   SESAME_DEBUG("Cluster number: "<< this->clusters.size());
   int i = 0;
   int num = 0;

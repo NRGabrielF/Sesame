@@ -202,7 +202,7 @@ void SESAME::DenStream::runOfflineClustering(DataSinkPtr sinkPtr) {
   this->dbscan->run(transformedPoints);
 
   this->dbscan->produceResult(transformedPoints, sinkPtr);
-  timerMeter.printTime(true,false,true,false);
+  //timerMeter.printTime(true,false,true,false);
 
 }
 void SESAME::DenStream::microClusterToPoint(std::vector<MicroClusterPtr> &microClusters,

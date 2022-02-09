@@ -73,11 +73,11 @@ void SESAME::DBStream::runOfflineClustering(DataSinkPtr sinkPtr) {
 
    SESAME_INFO("micro clusters "<<microClusters.size());
    SESAME_INFO("weightedAdjacencyList  "<<weightedAdjacencyList.size());
-   std::cout<<"micro clusters "<<microClusters.size()<<std::endl;
-   std::cout<<"weightedAdjacencyList  "<<weightedAdjacencyList.size()<<std::endl;
+  // std::cout<<"micro clusters "<<microClusters.size()<<std::endl;
+ //  std::cout<<"weightedAdjacencyList  "<<weightedAdjacencyList.size()<<std::endl;
    connectedRegions.connection(microClusters,
                                weightedAdjacencyList);
-   std::cout<<"Cluster size is "<<connectedRegions.finalClusters.size()<<std::endl;
+ //  std::cout<<"Cluster size is "<<connectedRegions.finalClusters.size()<<std::endl;
    std::vector<PointPtr> points = connectedRegions.ResultsToDataSink();
    for(auto & point : points)
      sinkPtr->put(point->copy());

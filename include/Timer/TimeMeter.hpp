@@ -161,7 +161,7 @@ class TimeMeter {
   void  overallAccMeasure();
   //start of online part
  // void MeterOverallAccUSEC();
-
+  long getOnline();
 
   void  onlineAccMeasure();
   void  onlineAccEMeasure();

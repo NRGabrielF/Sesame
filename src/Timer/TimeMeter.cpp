@@ -332,6 +332,9 @@ void SESAME::TimeMeter::printCumulative(){
   }
 
 }
+long SESAME::TimeMeter::getOnline(){
+  return recordOverall.back();
+}
 /**
  * print overall time of the algorithms
  */

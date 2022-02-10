@@ -18,9 +18,9 @@ void SESAME::Evaluation::runEvaluation(int dimension,
                                    center);*/
  double purity =  SESAME::Purity::purityCost(center, inputs, dimension, GTClusterNumber, decay);
 
-// double CMM = SESAME::CMM::CMMCost(dimension,inputs,center);
- std::cout// << "Accuracy:\n"
- //<<"AveCMM: " << round(CMM * 10000) / 10000
- // << "\npurity: "
+ double CMM = SESAME::CMM::CMMCost(dimension,inputs,center);
+ std::cout << "Accuracy:\n"
+ <<"AveCMM: " << round(CMM * 10000) / 10000
+  << "\npurity: "
   << round(purity * 10000) / 10000 << std::endl;
 }

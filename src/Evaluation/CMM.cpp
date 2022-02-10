@@ -242,7 +242,7 @@ double SESAME::CMM::CMMCost(int dimension,
 //    // segment the stream data into horizons(windows) according to threshold
 //    CMMDriver cmm(dimension, CMM_A, CMM_LAMDA);
 //    double weight = cmm.computeWeight(i / 2 - pre_time);
-    for (int i = 25; i < inputs.size(); i+=25) {
+    for (int i = 100; i < inputs.size(); i+=100) {
       // segment the stream data into horizons(windows) according to threshold
       CMMDriver cmm(dimension, CMM_A, CMM_LAMDA);
       std::vector<PointPtr> seg;

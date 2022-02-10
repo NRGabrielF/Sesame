@@ -118,7 +118,7 @@ void SESAME::DStream::runOfflineClustering(DataSinkPtr sinkPtr)
     }
     points.push_back(point);
   }
-  //timerMeter.printTime(false, false,false,true);
+  timerMeter.printTime(false, false,false,true);
   for(auto & point : points)
     sinkPtr->put(point->copy());
 }

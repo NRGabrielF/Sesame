@@ -23,9 +23,9 @@ using namespace std::chrono;
 void SESAME::DataSource::load(int point_number, int dimension, vector<string> input) {
 
   // The step used to generate random timestamps
-  const int timeStep = 100000;
+  const int timeStep = 1000000;
   for (int i = 0; i < point_number; i++) {
-    int timeStamp = timeStep * i + rand() % timeStep;
+    int timeStamp = timeStep * i ;
     PointPtr point = DataStructureFactory::createPoint(i, DEFAULT_WEIGHT, dimension, DEFAULT_COST, timeStamp);
     char *charData = new char[INT32_MAX];
     strcpy(charData, input[i].c_str());

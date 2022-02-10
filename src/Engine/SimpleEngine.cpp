@@ -103,7 +103,7 @@ void SESAME::SimpleEngine::runningRoutine(DataSourcePtr sourcePtr,
   barrierPtr->arrive_and_wait();//wait for source and sink.
   SESAME_DEBUG("Engine sourceEnd wait for source and sink.");
   printTime();
-   //overallMeter.printCumulative();
+   overallMeter.printCumulative();
 }
 
 bool SESAME::SimpleEngine::stop() {
@@ -122,9 +122,9 @@ int SESAME::SimpleEngine::assignID() {
 }
 void SESAME::SimpleEngine::printTime() {
   SESAME_INFO("Engine takes " << overallMeter.MeterUSEC() << " useconds to finish.");
-//  std::cout <<  "Engine takes " << overallMeter.MeterUSEC() << " useconds to finish."<< std::endl;
-  std::cout //<< "Online Time: " << overallMeter.MeterOnlineUSEC()<< "\n"
- // << "Refinement Time: " << overallMeter.MeterRefinementUSEC()<< "\n"
- //<<  "Overall Time: " <<overallMeter.MeterUSEC()<<"\n"
+  std::cout <<  "Engine takes " << overallMeter.MeterUSEC() << " useconds to finish."<< std::endl;
+  std::cout << "Online Time: " << overallMeter.MeterOnlineUSEC()<< "\n"
+ << "Refinement Time: " << overallMeter.MeterRefinementUSEC()<< "\n"
+ <<  "Overall Time: " <<overallMeter.MeterUSEC()<<"\n"
   << overallMeter.getOnline()+overallMeter.MeterRefinementUSEC()<< std::endl;
 }

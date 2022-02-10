@@ -28,7 +28,7 @@ void SESAME::Birch::runOfflineClustering(DataSinkPtr sinkPtr) {
     }
     sinkPtr->put(centroid->copy());
   }
-  //timerMeter.printTime(false,false,false,false);
+  timerMeter.printTime(false,false,false,false);
   //SESAME_DEBUG( "The size of the centroid is :" << sinkPtr->getResults().size());
 //  std::vector<std::vector<PointPtr>> oldGroups, newGroups;
 //  this->kmeans->runKMeans((int)middleCentroids.size() / 2, (int)middleCentroids.size(),

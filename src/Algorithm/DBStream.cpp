@@ -82,7 +82,7 @@ void SESAME::DBStream::runOfflineClustering(DataSinkPtr sinkPtr) {
    for(auto & point : points)
      sinkPtr->put(point->copy());
 
-   // timerMeter.printTime(false,false,true,false);
+    timerMeter.printTime(false,false,true,false);
  }
 /**
  * @Description: Insert data point into existing MCs,
